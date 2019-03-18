@@ -20,6 +20,7 @@
     "apollo-link": "^1.2.11",
     "apollo-link-context": "^1.0.17",
     "apollo-server": "^2.4.8",
-    "graphql": "^14.1.1"
+    "graphql": "^14.1.1",
+    "mongoose": "^5.4.19"
   }
 }
