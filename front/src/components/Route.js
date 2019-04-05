@@ -1,10 +1,27 @@
-import React from "react"
+import React from 'react'
+import Leg from './Leg'
 
-const Route = ({ walkdistance, duration }) => {
+const Route = ({ itinerary }) => {
   return (
     <div>
-      <div>walkdistance: {walkdistance}</div>
-      <div>duration: {duration}</div>
+      <p>
+        <div>
+          <strong>Walkdistance: {itinerary.walkDistance}</strong>
+        </div>
+        <div>
+          <strong>Duration: {itinerary.duration}</strong>
+        </div>
+      </p>
+
+      <div>
+        <b>Route legs</b>
+      </div>
+      {itinerary.legs.map(leg => (
+        <div>
+          <p />
+          <Leg leg={leg} />
+        </div>
+      ))}
     </div>
   )
 }

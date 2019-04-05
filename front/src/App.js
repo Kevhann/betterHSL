@@ -1,9 +1,10 @@
-import React from "react"
-import { useApolloClient } from "react-apollo-hooks"
-import { gql } from "apollo-boost"
-import { useQuery, useMutation } from "react-apollo-hooks"
-import { Subscription } from "react-apollo"
-import SearchForm from "./components/SearchForm"
+import React from 'react'
+import { useApolloClient } from 'react-apollo-hooks'
+import { gql } from 'apollo-boost'
+import { useQuery, useMutation } from 'react-apollo-hooks'
+import { Subscription } from 'react-apollo'
+import SearchForm from './components/SearchForm'
+import { Container } from 'semantic-ui-react'
 
 // const planRoute = gql`
 //   query planRoute($lat: Float, $lon: Float) {
@@ -24,10 +25,10 @@ const App = props => {
   //console.log("planned route: ", plannedRoute)
 
   return (
-    <div>
+    <Container>
       Hello Team!
       <SearchForm />
-    </div>
+    </Container>
   )
 }
 

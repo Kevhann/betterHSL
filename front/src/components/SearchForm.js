@@ -1,52 +1,90 @@
-import React, { useState } from "react"
-import { useApolloClient, useQuery, useMutation } from "react-apollo-hooks"
-import { gql } from "apollo-boost"
-import axios from "axios"
-import Route from "./Route"
+import React, { useState } from 'react'
+import { useApolloClient } from 'react-apollo-hooks'
+import { gql } from 'apollo-boost'
+import axios from 'axios'
+import Route from './Route'
 
 const planRoute = gql`
-  query planRoute($lat: Float, $lon: Float) {
-    planRoute(lat: $lat, lon: $lon) {
+  query planRoute(
+    $latFrom: Float
+    $lonFrom: Float
+    $latTo: Float
+    $lonTo: Float
+  ) {
+    planRoute(
+      latFrom: $latFrom
+      lonFrom: $lonFrom
+      latTo: $latTo
+      lonTo: $lonTo
+    ) {
       walkDistance
       duration
+      legs {
+        mode
+        startTime
+        endTime
+        from {
+          lat
+          lon
+          name
+          stop {
+            code
+            name
+          }
+        }
+        to {
+          lat
+          lon
+          name
+        }
+        distance
+      }
     }
   }
 `
 
 const SearchForm = () => {
-  const [from, setFrom] = useState("")
-  const [to, setTo] = useState("")
+  const [from, setFrom] = useState('')
+  const [to, setTo] = useState('')
   const [routes, setRoutes] = useState([])
-  console.log("from: ", from)
-  console.log("to: ", to)
+  console.log('from: ', from)
+  console.log('to: ', to)
   const client = useApolloClient()
-  // const lad = 60.169022
-  // const lod = 24.931691
-  // const plannedRoute = useQuery(planRoute, {
-  //   variables: { lat: lad, lon: lod }
-  // })
 
   const submit = async event => {
     event.preventDefault()
-    const res = await axios.get(
-      "https://api.digitransit.fi/geocoding/v1/search?text=kamppi"
-    )
+    console.log('routes:', routes)
+    if (from !== '' && to !== '') {
+      const routeFrom = await axios.get(
+        `https://api.digitransit.fi/geocoding/v1/search?text=${from}&size=1`
+      )
 
-    const coordinates = res.data.features[0].geometry.coordinates
+      const routeTo = await axios.get(
+        `https://api.digitransit.fi/geocoding/v1/search?text=${to}&size=1`
+      )
 
-    const plannedRoute = await client.query({
-      query: planRoute,
-      variables: {
-        lat: coordinates[1],
-        lon: coordinates[0]
-      }
-    })
-    console.log("planned route search formissa: ", plannedRoute.data.planRoute)
-    const newRoutes = plannedRoute.data.planRoute
-    setRoutes(newRoutes)
+      const coordinatesFrom = routeFrom.data.features[0].geometry.coordinates
+      const coordinatesTo = routeTo.data.features[0].geometry.coordinates
 
-    setFrom("")
-    setTo("")
+      const plannedRoute = await client.query({
+        query: planRoute,
+        variables: {
+          latFrom: coordinatesFrom[1],
+          lonFrom: coordinatesFrom[0],
+          latTo: coordinatesTo[1],
+          lonTo: coordinatesTo[0]
+        }
+      })
+      console.log(
+        'planned route search formissa: ',
+        plannedRoute.data.planRoute
+      )
+      const newRoutes = plannedRoute.data.planRoute
+      setRoutes(newRoutes)
+    }
+
+    setFrom('')
+    setTo('')
   }
 
   return (
@@ -61,10 +99,10 @@ const SearchForm = () => {
         <button type="submit">click me</button>
       </div>
       <div>
-        {routes.map(r => (
-          <div key={r.duration}>
-            <Route walkdistance={r.walkDistance} duration={r.duration} />
-          </div>
+        {routes.map(route => (
+          <p key={route.duration}>
+            <Route itinerary={route} />
+          </p>
         ))}
       </div>
     </form>
