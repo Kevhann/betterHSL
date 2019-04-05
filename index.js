@@ -1,21 +1,21 @@
-const mongoose = require('mongoose')
-const { ApolloServer, UserInputError, gql } = require('apollo-server')
-const jwt = require('jsonwebtoken')
-const { createApolloFetch } = require('apollo-fetch')
-const geocode = require('./apis/rest/geocode')
-const http = require('http')
+const mongoose = require("mongoose")
+const { ApolloServer, UserInputError, gql } = require("apollo-server")
+const jwt = require("jsonwebtoken")
+const { createApolloFetch } = require("apollo-fetch")
+const geocode = require("./apis/rest/geocode")
+const http = require("http")
 
 const httpServer = http.createServer(geocode)
 httpServer.listen(3003, () => {
-  console.log('http geocode server running on port 3003')
+  console.log("http geocode server running on port 3003")
 })
 
 const HSL_ROUTE_API_URI =
-  'https://api.digitransit.fi/routing/v1/routers/next-hsl/index/graphql'
+  "https://api.digitransit.fi/routing/v1/routers/next-hsl/index/graphql"
 
 const fetch = new createApolloFetch({ uri: HSL_ROUTE_API_URI })
 
-console.log('connecting to', HSL_ROUTE_API_URI)
+console.log("connecting to", HSL_ROUTE_API_URI)
 
 const typeDefs = gql`
   type Query {
@@ -29,7 +29,7 @@ const typeDefs = gql`
   }
   type Stop {
     code: String
-    name: String!
+    name: String
   }
   type Itinerary {
     walkDistance: Float
@@ -43,6 +43,7 @@ const typeDefs = gql`
     from: From
     to: To
     distance: Float
+    trip: Trip
   }
   type From {
     lat: Float
@@ -55,6 +56,15 @@ const typeDefs = gql`
     lon: Float
     name: String
   }
+  type Trip {
+    route: Route
+    tripHeadsign: String
+    stops: Stop
+  }
+  type Route {
+    shortName: String
+    longName: String
+  }
 `
 const resolvers = {
   Query: {
@@ -66,7 +76,7 @@ const resolvers = {
           }
         }`
       })
-      console.log('res:', res.data.stops)
+      console.log("res:", res.data.stops)
       return res.data.stops
     },
     planRoute: async (root, args) => {
@@ -81,6 +91,16 @@ const resolvers = {
               walkDistance,
               duration,
               legs {
+                trip {
+                  route {
+                    shortName
+                    longName
+                  }
+                  tripHeadsign
+                  stops {
+                    name
+                  }
+                }
                 mode
                 startTime
                 endTime
@@ -104,10 +124,10 @@ const resolvers = {
             }
           }`
       })
-      console.log('responseboi: ', res)
+      console.log("responseboi: ", res)
       return res.data.plan.itineraries
     }
   }
 }
 const server = new ApolloServer({ typeDefs, resolvers })
-server.listen().then(({ url }) => console.log('sever ready at', url))
+server.listen().then(({ url }) => console.log("sever ready at", url))
