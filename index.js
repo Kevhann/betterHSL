@@ -20,7 +20,7 @@ console.log("connecting to", HSL_ROUTE_API_URI)
 const typeDefs = gql`
   type Query {
     allStops: [Stop!]!
-    planRoute(lat: Float!, lon: Float!): [Itinerary]
+    planRoute(lat: Float, lon: Float): [Itinerary]
   }
   type Stop {
     name: String!
