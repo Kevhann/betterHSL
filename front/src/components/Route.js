@@ -12,7 +12,7 @@ const Route = ({ itinerary }) => {
   if (walkDistance > 1000) {
     const walkDistanceRemainder = Math.round((walkDistance % 1000) / 100)
     const walkDistanceKm = Math.floor(walkDistance / 1000)
-    walkDistance = `${walkDistanceKm}.${walkDistanceRemainder}Km`
+    walkDistance = `${walkDistanceKm}.${walkDistanceRemainder}km`
   } else {
     walkDistance = `${walkDistance}m`
   }

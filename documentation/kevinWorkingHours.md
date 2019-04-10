@@ -6,6 +6,6 @@
 | 29.3 | 3:00  | First graphql query, rest api setup, api usage planning |
 | 4.4  | 1:40  | Working more on api queries                             |
 | 5.4  | 3:00  | Working on front end querying and appearance            |
-| 5.4  | 0:30  | Minor fron end information display tweaks               |
+| 10.4 | 1:30  | Autofill api initial queries                            |
 
-| Total | 9:55 |
+| Total | 10:55 |

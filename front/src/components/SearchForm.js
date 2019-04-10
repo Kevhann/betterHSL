@@ -1,8 +1,9 @@
-import React, { useState } from "react"
-import { useApolloClient } from "react-apollo-hooks"
-import { gql } from "apollo-boost"
-import axios from "axios"
-import Route from "./Route"
+import React, { useState, useEffect } from 'react'
+import { useApolloClient } from 'react-apollo-hooks'
+import { gql } from 'apollo-boost'
+import axios from 'axios'
+import Route from './Route'
+import autoComplete from '../apis/autocomplete'
 
 const planRoute = gql`
   query planRoute(
@@ -54,18 +55,21 @@ const planRoute = gql`
 `
 
 const SearchForm = () => {
-  const [from, setFrom] = useState("")
-  const [to, setTo] = useState("")
+  const [from, setFrom] = useState('')
+  const [to, setTo] = useState('')
   const [routes, setRoutes] = useState([])
-  console.log("from: ", from)
-  console.log("to: ", to)
+  console.log('from: ', from)
+  console.log('to: ', to)
   const client = useApolloClient()
+  useEffect(() => {
+    autoComplete(from).then(res => console.log('res:', res))
+  }, [from, to])
 
   const submit = async event => {
     event.preventDefault()
-    console.log("routes:", routes)
+    console.log('routes:', routes)
     setRoutes([])
-    if (from !== "" && to !== "") {
+    if (from !== '' && to !== '') {
       const routeFrom = await axios.get(
         `https://api.digitransit.fi/geocoding/v1/search?text=${from}&size=1`
       )
@@ -87,15 +91,15 @@ const SearchForm = () => {
         }
       })
       console.log(
-        "planned route search formissa: ",
+        'planned route search formissa: ',
         plannedRoute.data.planRoute
       )
       const newRoutes = plannedRoute.data.planRoute
       setRoutes(newRoutes)
     }
 
-    setFrom("")
-    setTo("")
+    setFrom('')
+    setTo('')
   }
 
   return (
