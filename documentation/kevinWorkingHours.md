@@ -7,5 +7,6 @@
 | 4.4  | 1:40  | Working more on api queries                             |
 | 5.4  | 3:00  | Working on front end querying and appearance            |
 | 10.4 | 1:30  | Autofill api initial queries                            |
+| 11.4 | 1:40  | Autofill with semantic-ui searchform                    |
 
-| Total | 10:55 |
+| Total | 12:35 |

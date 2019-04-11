@@ -1,10 +1,6 @@
 import React from 'react'
-import { useApolloClient } from 'react-apollo-hooks'
-import { gql } from 'apollo-boost'
-import { useQuery, useMutation } from 'react-apollo-hooks'
-import { Subscription } from 'react-apollo'
-import SearchForm from './components/SearchForm'
 import { Container } from 'semantic-ui-react'
+import AutocompleteForm from './components/AutocompleteSearchForm'
 
 // const planRoute = gql`
 //   query planRoute($lat: Float, $lon: Float) {
@@ -27,7 +23,8 @@ const App = props => {
   return (
     <Container>
       Hello Team!
-      <SearchForm />
+      <AutocompleteForm fieldName={'from'} />
+      <AutocompleteForm fieldName={'to'} />
     </Container>
   )
 }

@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useApolloClient } from 'react-apollo-hooks'
 import { gql } from 'apollo-boost'
 import axios from 'axios'
 import Route from './Route'
-import autoComplete from '../apis/autocomplete'
 
 const planRoute = gql`
   query planRoute(
@@ -61,9 +60,6 @@ const SearchForm = () => {
   console.log('from: ', from)
   console.log('to: ', to)
   const client = useApolloClient()
-  useEffect(() => {
-    autoComplete(from).then(res => console.log('res:', res))
-  }, [from, to])
 
   const submit = async event => {
     event.preventDefault()
