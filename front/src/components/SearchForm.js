@@ -1,9 +1,9 @@
-import React, { useState } from "react"
-import { useApolloClient } from "react-apollo-hooks"
-import { gql } from "apollo-boost"
-import axios from "axios"
-import Route from "./Route"
-import AutocompleteSearchForm from "./AutocompleteSearchForm"
+import React, { useState } from 'react'
+import { useApolloClient } from 'react-apollo-hooks'
+import { gql } from 'apollo-boost'
+import axios from 'axios'
+import Route from './Route'
+import AutocompleteSearchForm from './AutocompleteSearchForm'
 import {
   Search,
   Grid,
@@ -12,7 +12,7 @@ import {
   Form,
   Button,
   Icon
-} from "semantic-ui-react"
+} from 'semantic-ui-react'
 
 const planRoute = gql`
   query planRoute(
@@ -64,18 +64,18 @@ const planRoute = gql`
 `
 
 const SearchForm = () => {
-  const [from, setFrom] = useState("")
-  const [to, setTo] = useState("")
+  const [from, setFrom] = useState('')
+  const [to, setTo] = useState('')
   const [routes, setRoutes] = useState([])
-  console.log("from: ", from)
-  console.log("to: ", to)
+  console.log('from: ', from)
+  console.log('to: ', to)
   const client = useApolloClient()
 
   const submit = async event => {
     event.preventDefault()
-    console.log("routes:", routes)
+    console.log('routes:', routes)
     setRoutes([])
-    if (from !== "" && to !== "") {
+    if (from !== '' && to !== '') {
       const routeFrom = await axios.get(
         `https://api.digitransit.fi/geocoding/v1/search?text=${from}&size=1`
       )
@@ -97,43 +97,45 @@ const SearchForm = () => {
         }
       })
       console.log(
-        "planned route search formissa: ",
+        'planned route search formissa: ',
         plannedRoute.data.planRoute
       )
       const newRoutes = plannedRoute.data.planRoute
       setRoutes(newRoutes)
     }
 
-    setFrom("")
-    setTo("")
+    setFrom('')
+    setTo('')
   }
 
   return (
     <div>
-      <Form onSubmit={submit}>
-        <Form.Field>
-          <AutocompleteSearchForm
-            inputValue={from}
-            setInputValue={setFrom}
-            fieldName="from"
-          />
-        </Form.Field>
-        <Form.Field>
-          <AutocompleteSearchForm
-            inputValue={to}
-            setInputValue={setTo}
-            fieldName="to"
-          />
-        </Form.Field>
-        <Form.Field>
-          <Button animated type="submit">
-            <Button.Content visible>Search</Button.Content>
-            <Button.Content hidden>
-              <Icon name="arrow right" />
-            </Button.Content>
-          </Button>
-        </Form.Field>
-      </Form>
+      <Segment>
+        <Form onSubmit={submit}>
+          <Form.Field>
+            <AutocompleteSearchForm
+              inputValue={from}
+              setInputValue={setFrom}
+              fieldName="from"
+            />
+          </Form.Field>
+          <Form.Field>
+            <AutocompleteSearchForm
+              inputValue={to}
+              setInputValue={setTo}
+              fieldName="to"
+            />
+          </Form.Field>
+          <Form.Field>
+            <Button animated type="submit">
+              <Button.Content visible>Search</Button.Content>
+              <Button.Content hidden>
+                <Icon name="arrow right" />
+              </Button.Content>
+            </Button>
+          </Form.Field>
+        </Form>
+      </Segment>
       <div>
         {routes.map(route => (
           <p key={route.duration}>
