@@ -1,6 +1,8 @@
-import React from 'react'
-import { Container } from 'semantic-ui-react'
-import AutocompleteForm from './components/AutocompleteSearchForm'
+import React from "react"
+import { Container } from "semantic-ui-react"
+import AutocompleteForm from "./components/AutocompleteSearchForm"
+import SearchForm from "./components/SearchForm"
+import { Header } from "semantic-ui-react"
 
 // const planRoute = gql`
 //   query planRoute($lat: Float, $lon: Float) {
@@ -22,9 +24,10 @@ const App = props => {
 
   return (
     <Container>
-      Hello Team!
-      <AutocompleteForm fieldName={'from'} />
-      <AutocompleteForm fieldName={'to'} />
+      <Header size="huge">Better HSL</Header>
+      <SearchForm />
+      {/*<AutocompleteForm fieldName={'from'} />
+      <AutocompleteForm fieldName={'to'} />*/}
     </Container>
   )
 }
