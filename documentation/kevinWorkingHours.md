@@ -9,4 +9,5 @@
 | 10.4  | 1:30  | Autofill api initial queries                             |
 | 11.4  | 1:40  | Autofill with semantic-ui searchform                     |
 | 12.4  | 4:00  | Routing functionality to semantic ui, debounce api calls |
-| Total | 16:35 |                                                          |
+| 13.4  | 1:30  | Autofill parameter meddling, adding icons to results     |
+| Total | 18:05 |                                                          |

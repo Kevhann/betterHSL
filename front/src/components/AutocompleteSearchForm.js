@@ -1,7 +1,7 @@
-import React, { useState } from "react"
-import _ from "lodash"
-import { Search, Grid, Header, Segment } from "semantic-ui-react"
-import autocomplete from "../apis/autocomplete"
+import React, { useState } from 'react'
+import _ from 'lodash'
+import { Search, Grid, Header, Segment, Label, Icon } from 'semantic-ui-react'
+import autocomplete from '../apis/autocomplete'
 
 const AutocompleteForm = ({ fieldName, inputValue, setInputValue }) => {
   const [loading, setLoading] = useState(false)
@@ -10,7 +10,7 @@ const AutocompleteForm = ({ fieldName, inputValue, setInputValue }) => {
   const resetComponent = () => {
     setLoading(false)
     setResults([])
-    setInputValue("")
+    setInputValue('')
   }
 
   const handleResultSelect = (e, { result }) => setInputValue(result.title)
@@ -19,9 +19,10 @@ const AutocompleteForm = ({ fieldName, inputValue, setInputValue }) => {
     if (value.length < 1) return resetComponent()
 
     const autocompleteResults = await autocomplete(value)
-    console.log("autocompleteResults:", autocompleteResults)
+    console.log('autocompleteResults:', autocompleteResults)
     const formattedResults = autocompleteResults.map(res => ({
-      title: res.properties.name
+      title: res.properties.label,
+      layer: res.properties.layer
     }))
     setLoading(false)
     setResults(_.take(formattedResults, 5))
@@ -33,19 +34,32 @@ const AutocompleteForm = ({ fieldName, inputValue, setInputValue }) => {
 
   const handleSearchChange = (e, { value }) => {
     setLoading(true)
-    console.log("inputvalue: ", inputValue)
+    console.log('inputvalue: ', inputValue)
     setInputValue(value)
     bouncer(value)
   }
+  const resultRenderer = ({ title, layer }) => {
+    /* Return an appropriate icon based on the layer of the autofill result */
+    return (
+      <div>
+        {layer === 'station' && <Icon name="building" />}
+        {layer === 'stop' && <Icon name="flag" />}
+        {layer !== 'stop' && layer !== 'station' && <Icon name="point" />}
+
+        {title}
+      </div>
+    )
+  }
   return (
     <Search
-      width={12}
+      fluid
       loading={loading}
       onResultSelect={handleResultSelect}
       onSearchChange={handleSearchChange}
       results={results}
       value={inputValue}
       placeholder={fieldName}
+      resultRenderer={resultRenderer}
     />
   )
 }
