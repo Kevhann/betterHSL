@@ -40,12 +40,17 @@ const AutocompleteForm = ({ fieldName, inputValue, setInputValue }) => {
   }
   const resultRenderer = ({ title, layer }) => {
     /* Return an appropriate icon based on the layer of the autofill result */
+    let iconName
+    if (layer === 'venue') {
+      iconName = 'building'
+    } else if (layer === 'stop') {
+      iconName = 'flag'
+    } else {
+      iconName = 'point'
+    }
     return (
       <div>
-        {layer === 'station' && <Icon name="building" />}
-        {layer === 'stop' && <Icon name="flag" />}
-        {layer !== 'stop' && layer !== 'station' && <Icon name="point" />}
-
+        <Icon name={iconName} />
         {title}
       </div>
     )
