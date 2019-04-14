@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Leg from './Leg'
 import { Accordion, Icon } from 'semantic-ui-react'
 import formatDistance from '../functions/formatDistance'
+import Timeline from 'react-timeline-semantic-ui'
 
 const Route = ({ itinerary }) => {
   const [activeIndex, setActiveIndex] = useState(-1)
