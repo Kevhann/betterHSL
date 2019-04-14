@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import _ from 'lodash'
-import { Search, Grid, Header, Segment, Label, Icon } from 'semantic-ui-react'
-import autocomplete from '../apis/autocomplete'
+import React, { useState } from "react"
+import _ from "lodash"
+import { Search, Grid, Header, Segment, Label, Icon } from "semantic-ui-react"
+import autocomplete from "../apis/autocomplete"
 
 const AutocompleteForm = ({ fieldName, inputValue, setInputValue }) => {
   const [loading, setLoading] = useState(false)
@@ -10,7 +10,7 @@ const AutocompleteForm = ({ fieldName, inputValue, setInputValue }) => {
   const resetComponent = () => {
     setLoading(false)
     setResults([])
-    setInputValue('')
+    setInputValue("")
   }
 
   const handleResultSelect = (e, { result }) => setInputValue(result.title)
@@ -19,13 +19,10 @@ const AutocompleteForm = ({ fieldName, inputValue, setInputValue }) => {
     if (value.length < 1) return resetComponent()
 
     const autocompleteResults = await autocomplete(value)
-    console.log('autocompleteResults:', autocompleteResults)
-    const formattedResults = autocompleteResults.map(res => ({
-      title: res.properties.label,
-      layer: res.properties.layer
-    }))
+    console.log("autocompleteResults:", autocompleteResults)
+
     setLoading(false)
-    setResults(_.take(formattedResults, 5))
+    setResults(autocompleteResults)
   }
 
   const bouncer = _.debounce(update, 2000, {
@@ -34,19 +31,21 @@ const AutocompleteForm = ({ fieldName, inputValue, setInputValue }) => {
 
   const handleSearchChange = (e, { value }) => {
     setLoading(true)
-    console.log('inputvalue: ', inputValue)
+    console.log("inputvalue: ", inputValue)
     setInputValue(value)
     bouncer(value)
   }
   const resultRenderer = ({ title, layer }) => {
     /* Return an appropriate icon based on the layer of the autofill result */
     let iconName
-    if (layer === 'venue') {
-      iconName = 'building'
-    } else if (layer === 'stop') {
-      iconName = 'flag'
+    if (layer === "venue") {
+      iconName = "building"
+    } else if (layer === "stop") {
+      iconName = "flag"
+    } else if (layer === "address") {
+      iconName = "point"
     } else {
-      iconName = 'point'
+      iconName = "map signs"
     }
     return (
       <div>
