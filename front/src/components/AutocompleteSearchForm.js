@@ -1,51 +1,50 @@
-import React, { useState } from "react"
-import _ from "lodash"
-import { Search, Grid, Header, Segment, Label, Icon } from "semantic-ui-react"
-import autocomplete from "../apis/autocomplete"
+import React, { useState, useEffect } from 'react'
+import _ from 'lodash'
+import { Search, Icon } from 'semantic-ui-react'
+import autocomplete from '../apis/autocomplete'
+import useDebouncedCallback from 'use-debounce/lib/callback'
 
 const AutocompleteForm = ({ fieldName, inputValue, setInputValue }) => {
   const [loading, setLoading] = useState(false)
   const [results, setResults] = useState([])
+  const [bounce] = useDebouncedCallback(
+    async value => {
+      if (value.length < 1) return resetComponent()
+
+      const autocompleteResults = await autocomplete(value)
+      console.log('autocompleteResults:', autocompleteResults)
+
+      setLoading(false)
+      setResults(autocompleteResults)
+    },
+    200,
+    []
+  )
 
   const resetComponent = () => {
     setLoading(false)
     setResults([])
-    setInputValue("")
+    setInputValue('')
   }
 
   const handleResultSelect = (e, { result }) => setInputValue(result.title)
 
-  const update = async value => {
-    if (value.length < 1) return resetComponent()
-
-    const autocompleteResults = await autocomplete(value)
-    console.log("autocompleteResults:", autocompleteResults)
-
-    setLoading(false)
-    setResults(autocompleteResults)
-  }
-
-  const bouncer = _.debounce(update, 2000, {
-    trailing: true
-  })
-
   const handleSearchChange = (e, { value }) => {
     setLoading(true)
-    console.log("inputvalue: ", inputValue)
+    console.log('inputvalue: ', inputValue)
     setInputValue(value)
-    bouncer(value)
   }
   const resultRenderer = ({ title, layer }) => {
     /* Return an appropriate icon based on the layer of the autofill result */
     let iconName
-    if (layer === "venue") {
-      iconName = "building"
-    } else if (layer === "stop") {
-      iconName = "flag"
-    } else if (layer === "address") {
-      iconName = "point"
+    if (layer === 'venue') {
+      iconName = 'building'
+    } else if (layer === 'stop') {
+      iconName = 'flag'
+    } else if (layer === 'address') {
+      iconName = 'point'
     } else {
-      iconName = "map signs"
+      iconName = 'map signs'
     }
     return (
       <div>
@@ -58,8 +57,12 @@ const AutocompleteForm = ({ fieldName, inputValue, setInputValue }) => {
     <Search
       fluid
       loading={loading}
+      onSearchChange={e => {
+        setLoading(true)
+        setInputValue(e.target.value)
+        bounce(e.target.value)
+      }}
       onResultSelect={handleResultSelect}
-      onSearchChange={handleSearchChange}
       results={results}
       value={inputValue}
       placeholder={fieldName}

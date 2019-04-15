@@ -18,7 +18,8 @@
     "react-select": "^2.4.1",
     "react-timeline-semantic-ui": "^1.0.13",
     "semantic-ui-react": "^0.86.0",
-    "subscriptions-transport-ws": "^0.9.16"
+    "subscriptions-transport-ws": "^0.9.16",
+    "use-debounce": "^1.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
