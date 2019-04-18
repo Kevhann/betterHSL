@@ -3,13 +3,16 @@
   max-height: 348px;
 }
 
-.ui.container {
+
+.searchForm {
   position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  padding: 10px;
   z-index: 1;
+}
+
+.menu {
+  background-color: lightblue;
+  z-index: 2;
 }
 
 .leaflet-container {

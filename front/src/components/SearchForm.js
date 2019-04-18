@@ -108,7 +108,7 @@ const SearchForm = ({ routes, setRoutes, setBackgroundLocation }) => {
   }
 
   return (
-    <div>
+    <div className="searchForm">
       <Segment>
         <Form onSubmit={submit}>
           <Form.Field>

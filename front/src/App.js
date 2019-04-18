@@ -1,5 +1,5 @@
 import React from "react"
-import { Container, Header } from "semantic-ui-react"
+import { Container, Menu } from "semantic-ui-react"
 import SearchForm from "./components/SearchForm"
 import BackgroundMap from "./components/BackgroundMap"
 import "./styles.css"
@@ -9,7 +9,9 @@ const App = () => {
     <>
       <BackgroundMap />
       <Container>
-        <Header size="huge">Better HSL</Header>
+        <Menu widths={3} className="menu">
+          <Menu.Item header name="BetterHsl" active={false} />
+        </Menu>
         <SearchForm />
       </Container>
     </>
