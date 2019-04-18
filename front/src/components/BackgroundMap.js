@@ -3,6 +3,7 @@ import "leaflet/dist/leaflet.css"
 import { Map, Marker, Popup, TileLayer, Polyline } from "react-leaflet"
 import { connect } from "react-redux"
 import { setBackgroundLocation } from "../reducers/backgroundMapReducer"
+import polyUtil from "polyline-encoded"
 
 const BackgroundMap = ({ latlng, setLatlng, routes }) => {
   const [trails, setTrails] = useState([])
@@ -15,7 +16,8 @@ const BackgroundMap = ({ latlng, setLatlng, routes }) => {
         } else if (leg.mode === "SUBWAY") {
           color = "orange"
         }
-        return { color, from: leg.from, to: leg.to }
+        const decodedTrail = polyUtil.decode(leg.legGeometry.points)
+        return { color, decodedTrail }
       })
       setTrails(placeholder)
     }
@@ -39,13 +41,7 @@ const BackgroundMap = ({ latlng, setLatlng, routes }) => {
     >
       {console.log("routes bgmapissa: ", routes)}
       {trails.map(trail => (
-        <Polyline
-          color={trail.color}
-          positions={[
-            [trail.from.lat, trail.from.lon],
-            [trail.to.lat, trail.to.lon]
-          ]}
-        />
+        <Polyline color={trail.color} positions={trail.decodedTrail} />
       ))}
 
       <TileLayer

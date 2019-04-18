@@ -44,6 +44,10 @@ const typeDefs = gql`
     to: To
     distance: Float
     trip: Trip
+    legGeometry: LegGeometry
+  }
+  type LegGeometry {
+    points: String
   }
   type From {
     lat: Float
@@ -91,6 +95,9 @@ const resolvers = {
               walkDistance,
               duration,
               legs {
+                legGeometry{
+                  points
+                }
                 trip {
                   route {
                     shortName

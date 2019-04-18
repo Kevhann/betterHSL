@@ -25,6 +25,9 @@ const planRoute = gql`
       walkDistance
       duration
       legs {
+        legGeometry {
+          points
+        }
         mode
         startTime
         endTime
