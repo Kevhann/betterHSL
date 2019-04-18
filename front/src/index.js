@@ -3,6 +3,8 @@ import ReactDOM from "react-dom"
 import App from "./App"
 import { ApolloProvider } from "react-apollo"
 import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks"
+import { Provider } from "react-redux"
+import store from "./store"
 
 import { ApolloClient } from "apollo-client"
 import { createHttpLink } from "apollo-link-http"
@@ -52,7 +54,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <ApolloProvider client={client}>
     <ApolloHooksProvider client={client}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </ApolloHooksProvider>
   </ApolloProvider>,
   document.getElementById("root")

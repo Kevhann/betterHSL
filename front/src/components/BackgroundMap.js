@@ -1,14 +1,13 @@
-import React from "react"
-import { Image } from "semantic-ui-react"
-import L from "leaflet"
+import React, { useState } from "react"
 import "leaflet/dist/leaflet.css"
 import { Map, Marker, Popup, TileLayer } from "react-leaflet"
+import { connect } from "react-redux"
+import { setBackgroundLocation } from "../reducers/backgroundMapReducer"
 
-const BackgroundMap = () => {
-  const position = [60.192059, 24.945831]
+const BackgroundMap = ({ latlng, setLatlng }) => {
   return (
     <Map
-      center={[60.192059, 24.945831]}
+      center={latlng}
       zoom={12}
       maxZoom={20}
       attributionControl={true}
@@ -18,6 +17,9 @@ const BackgroundMap = () => {
       dragging={true}
       animate={true}
       easeLinearity={0.35}
+      onclick={e => {
+        setLatlng([e.latlng.lat, e.latlng.lng])
+      }}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -25,11 +27,19 @@ const BackgroundMap = () => {
       />
     </Map>
   )
-
-  /*return (
-
-    <Image src="https://cdn.digitransit.fi/map/v1/hsl-map/16/37313/18958@2x.png" />
-  )*/
 }
 
-export default BackgroundMap
+const mapStateToProps = state => {
+  return {
+    latlng: state.backgroundMapReducer
+  }
+}
+
+const mapDispatchToProps = {
+  setLatlng: setBackgroundLocation
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BackgroundMap)

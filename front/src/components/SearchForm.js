@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
-import { useApolloClient } from 'react-apollo-hooks'
-import { gql } from 'apollo-boost'
-import axios from 'axios'
-import Route from './Route'
-import AutocompleteSearchForm from './AutocompleteSearchForm'
-import { Segment, Form, Button, Icon } from 'semantic-ui-react'
+import React, { useState } from "react"
+import { useApolloClient } from "react-apollo-hooks"
+import { gql } from "apollo-boost"
+import axios from "axios"
+import Route from "./Route"
+import AutocompleteSearchForm from "./AutocompleteSearchForm"
+import { Segment, Form, Button, Icon } from "semantic-ui-react"
+import { connect } from "react-redux"
+import { setRoutes } from "../reducers/routeReducer"
+import { setBackgroundLocation } from "../reducers/backgroundMapReducer"
 
 const planRoute = gql`
   query planRoute(
@@ -55,19 +58,18 @@ const planRoute = gql`
   }
 `
 
-const SearchForm = () => {
-  const [from, setFrom] = useState('')
-  const [to, setTo] = useState('')
-  const [routes, setRoutes] = useState([])
-  console.log('from: ', from)
-  console.log('to: ', to)
+const SearchForm = ({ routes, setRoutes, setBackgroundLocation }) => {
+  const [from, setFrom] = useState("")
+  const [to, setTo] = useState("")
+  console.log("from: ", from)
+  console.log("to: ", to)
   const client = useApolloClient()
 
   const submit = async event => {
     event.preventDefault()
-    console.log('routes:', routes)
+    console.log("routes:", routes)
     setRoutes([])
-    if (from !== '' && to !== '') {
+    if (from !== "" && to !== "") {
       const routeFrom = await axios.get(
         `https://api.digitransit.fi/geocoding/v1/search?text=${from}&size=1`
       )
@@ -79,6 +81,8 @@ const SearchForm = () => {
       const coordinatesFrom = routeFrom.data.features[0].geometry.coordinates
       const coordinatesTo = routeTo.data.features[0].geometry.coordinates
 
+      setBackgroundLocation([coordinatesFrom[1], coordinatesFrom[0]])
+
       const plannedRoute = await client.query({
         query: planRoute,
         variables: {
@@ -89,15 +93,15 @@ const SearchForm = () => {
         }
       })
       console.log(
-        'planned route search formissa: ',
+        "planned route search formissa: ",
         plannedRoute.data.planRoute
       )
       const newRoutes = plannedRoute.data.planRoute
       setRoutes(newRoutes)
     }
 
-    setFrom('')
-    setTo('')
+    setFrom("")
+    setTo("")
   }
 
   return (
@@ -133,7 +137,7 @@ const SearchForm = () => {
           <div>
             <p />
             <div key={route.duration}>
-              {console.log('route: ', route)}
+              {console.log("route: ", route)}
               <Route itinerary={route} />
             </div>
           </div>
@@ -142,5 +146,15 @@ const SearchForm = () => {
     </div>
   )
 }
+const mapStateToProps = state => ({
+  routes: state.routeReducer
+})
+const mapDispatchToProps = {
+  setRoutes,
+  setBackgroundLocation
+}
 
-export default SearchForm
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchForm)

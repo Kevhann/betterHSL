@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import _ from 'lodash'
-import { Search, Icon } from 'semantic-ui-react'
-import autocomplete from '../apis/autocomplete'
-import useDebouncedCallback from 'use-debounce/lib/callback'
+import React, { useState } from "react"
+import _ from "lodash"
+import { Search, Icon } from "semantic-ui-react"
+import autocomplete from "../apis/autocomplete"
+import useDebouncedCallback from "use-debounce/lib/callback"
 
 const AutocompleteForm = ({ fieldName, inputValue, setInputValue }) => {
   const [loading, setLoading] = useState(false)
@@ -12,7 +12,7 @@ const AutocompleteForm = ({ fieldName, inputValue, setInputValue }) => {
       if (value.length < 1) return resetComponent()
 
       const autocompleteResults = await autocomplete(value)
-      console.log('autocompleteResults:', autocompleteResults)
+      console.log("autocompleteResults:", autocompleteResults)
 
       setLoading(false)
       setResults(autocompleteResults)
@@ -24,27 +24,22 @@ const AutocompleteForm = ({ fieldName, inputValue, setInputValue }) => {
   const resetComponent = () => {
     setLoading(false)
     setResults([])
-    setInputValue('')
+    setInputValue("")
   }
 
   const handleResultSelect = (e, { result }) => setInputValue(result.title)
 
-  const handleSearchChange = (e, { value }) => {
-    setLoading(true)
-    console.log('inputvalue: ', inputValue)
-    setInputValue(value)
-  }
   const resultRenderer = ({ title, layer }) => {
     /* Return an appropriate icon based on the layer of the autofill result */
     let iconName
-    if (layer === 'venue') {
-      iconName = 'building'
-    } else if (layer === 'stop') {
-      iconName = 'flag'
-    } else if (layer === 'address') {
-      iconName = 'point'
+    if (layer === "venue") {
+      iconName = "building"
+    } else if (layer === "stop") {
+      iconName = "flag"
+    } else if (layer === "address") {
+      iconName = "point"
     } else {
-      iconName = 'map signs'
+      iconName = "map signs"
     }
     return (
       <div>

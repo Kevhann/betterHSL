@@ -4,24 +4,17 @@
 }
 
 .ui.container {
-  position: absolute;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 1;
 }
-
-#mapid { height: 1024px; width: 1024px;
-color : blue;}
-
-html, head {
-  height: 100%;
-  width: 100%;
-}
-
 
 .leaflet-container {
   position: absolute;
-  height: 1024px;
+  height: 100vh;
   width: 100%;
+  z-index: 0;
 }
