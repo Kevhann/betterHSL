@@ -12,4 +12,6 @@
 | 13.4  | 1:30  | Autofill parameter meddling, adding icons to results            |
 | 14.4  | 1:55  | Refining autofill api results                                   |
 | 15.4  | 2:10  | Debounce fix, autofill api changed, overall cleaning & planning |
-| Total | 22:10 |                                                                 |
+| 18.4  | 7:00  | Implement background map, change state handling to redux, add   |
+|       |       | route trail drawing, add rest api queries / modify graphql query|
+| Total | 29:10 |                                                                 |

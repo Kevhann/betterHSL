@@ -11,4 +11,6 @@
 | 12.4  | 4:00  | Routing functionality to semantic ui, debounce api calls        |
 | 14.4  | 1:55  | Refining autofill api results                                   |
 | 15.4  | 2:10  | Debounce fix, autofill api changed, overall cleaning & planning |
-| Total | 21:10 |                                                                 |
+| 18.4  | 7:15  | Implement background map, change state handling to redux, add   |
+|       |       | route trail drawing, add rest api queries / modify graphql query|
+| Total | 28:25 |                                                                 |
