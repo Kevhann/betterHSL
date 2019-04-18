@@ -2,3 +2,26 @@
   overflow-y: auto;
   max-height: 348px;
 }
+
+.ui.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#mapid { height: 1024px; width: 1024px;
+color : blue;}
+
+html, head {
+  height: 100%;
+  width: 100%;
+}
+
+
+.leaflet-container {
+  position: absolute;
+  height: 1024px;
+  width: 100%;
+}

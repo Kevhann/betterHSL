@@ -1,15 +1,18 @@
-import React from 'react'
-import { Container } from 'semantic-ui-react'
-import SearchForm from './components/SearchForm'
-import { Header } from 'semantic-ui-react'
-import './styles.css'
+import React from "react"
+import { Container, Header } from "semantic-ui-react"
+import SearchForm from "./components/SearchForm"
+import BackgroundMap from "./components/BackgroundMap"
+import "./styles.css"
 
 const App = () => {
   return (
-    <Container>
-      <Header size="huge">Better HSL</Header>
-      <SearchForm />
-    </Container>
+    <>
+      <BackgroundMap />
+      <Container>
+        <Header size="huge">Better HSL</Header>
+        <SearchForm />
+      </Container>
+    </>
   )
 }
 
