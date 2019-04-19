@@ -13,4 +13,5 @@
 | 15.4  | 2:10  | Debounce fix, autofill api changed, overall cleaning & planning |
 | 18.4  | 7:15  | Implement background map, change state handling to redux, add   |
 |       |       | route trail drawing, add rest api queries / modify graphql query|
-| Total | 28:25 |                                                                 |
+| 19.4  | 2:15  | Non-primary trail drawing, setting up trail highlight           |
+| Total | 30:40 |                                                                 |
