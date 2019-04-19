@@ -12,4 +12,5 @@ export const setBackgroundLocation = value => {
     value
   }
 }
+
 export default backgroundReducer

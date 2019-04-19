@@ -4,8 +4,10 @@ import { Accordion, Icon } from "semantic-ui-react"
 import formatDistance from "../functions/formatDistance"
 import Timeline from "react-timeline-semantic-ui"
 import { Grid } from "semantic-ui-react"
+import { setActiveTrail } from "../reducers/trailReducer"
+import { connect } from "react-redux"
 
-const Route = ({ itinerary }) => {
+const Route = ({ itinerary, activeTrail, setActiveTrail }) => {
   const [activeIndex, setActiveIndex] = useState(-1)
   const durationInSeconds = itinerary.duration
   const durationHours = Math.floor(durationInSeconds / 3600)
@@ -18,9 +20,12 @@ const Route = ({ itinerary }) => {
   const handleClick = (e, titleProps) => {
     const { index } = titleProps
     const newIndex = activeIndex === index ? -1 : index
-
+    console.log("active trail:", activeTrail)
+    //tää index/newindex ei ookkaan sitä mitä halutaan activeindexille, vaatii viel hinkkaamista
+    setActiveTrail(index)
     setActiveIndex(newIndex)
   }
+  console.log("haloo")
 
   return (
     <p>
@@ -50,4 +55,17 @@ const Route = ({ itinerary }) => {
   )
 }
 
-export default Route
+const mapStateToProps = state => {
+  return {
+    activeTrail: state.trailReducer
+  }
+}
+
+const mapDispatchToProps = {
+  setActiveTrail: setActiveTrail
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Route)
