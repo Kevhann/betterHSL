@@ -1,12 +1,8 @@
-import React from "react"
-import formatDistance from "../functions/formatDistance"
+import React from 'react'
+import { formatDistance, formatTime } from '../functions/formatter'
 
 const Leg = ({ leg }) => {
-  const startTime = new Date(leg.startTime)
-  const hour = startTime.getHours()
-  const minute = startTime.getMinutes()
-  const formattedTime = hour + ":" + minute
-  console.log("h", hour, "m", minute)
+  const startTime = formatTime(leg.startTime)
   const distance = formatDistance(leg.distance)
 
   return (
@@ -21,7 +17,7 @@ const Leg = ({ leg }) => {
           </div>
         )}
         <div>Distance: {distance}</div>
-        <div>Departure: {formattedTime}</div>
+        <div>Departure: {startTime}</div>
         <div>To: {leg.to.name}</div>
       </div>
     </div>

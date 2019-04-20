@@ -3,7 +3,6 @@
   max-height: 348px;
 }
 
-
 .searchForm {
   position: sticky;
   padding: 10px;
@@ -20,4 +19,15 @@
   height: 100vh;
   width: 100%;
   z-index: 0;
+}
+
+.divided {
+  display: flex;
+  align-items: center;
+}
+
+.divider {
+  flex-grow: 1;
+  border-bottom: 5px solid red;
+  margin: 5px;
 }
