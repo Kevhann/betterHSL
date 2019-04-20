@@ -7,7 +7,7 @@ import { Grid } from "semantic-ui-react"
 import { setActiveTrail } from "../reducers/trailReducer"
 import { connect } from "react-redux"
 
-const Route = ({ itinerary, activeTrail, setActiveTrail }) => {
+const Route = ({ itinerary, activeTrail, setActiveTrail, itineraryid }) => {
   const [activeIndex, setActiveIndex] = useState(-1)
   const durationInSeconds = itinerary.duration
   const durationHours = Math.floor(durationInSeconds / 3600)
@@ -21,8 +21,10 @@ const Route = ({ itinerary, activeTrail, setActiveTrail }) => {
     const { index } = titleProps
     const newIndex = activeIndex === index ? -1 : index
     console.log("active trail:", activeTrail)
+    console.log("route titleprops: ", titleProps)
+
     //tää index/newindex ei ookkaan sitä mitä halutaan activeindexille, vaatii viel hinkkaamista
-    setActiveTrail(index)
+    setActiveTrail(itineraryid)
     setActiveIndex(newIndex)
   }
   console.log("haloo")

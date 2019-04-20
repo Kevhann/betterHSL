@@ -67,6 +67,7 @@ const SearchForm = ({ routes, setRoutes, setBackgroundLocation }) => {
   console.log("from: ", from)
   console.log("to: ", to)
   const client = useApolloClient()
+  let itineraryid = 0
 
   const submit = async event => {
     event.preventDefault()
@@ -141,7 +142,8 @@ const SearchForm = ({ routes, setRoutes, setBackgroundLocation }) => {
             <p />
             <div key={route.duration}>
               {console.log("route: ", route)}
-              <Route itinerary={route} />
+              <Route itinerary={route} itineraryid={itineraryid} />
+              {console.log(itineraryid++)}
             </div>
           </div>
         ))}

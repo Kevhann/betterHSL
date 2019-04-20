@@ -14,4 +14,5 @@
 | 18.4  | 7:15  | Implement background map, change state handling to redux, add   |
 |       |       | route trail drawing, add rest api queries / modify graphql query|
 | 19.4  | 2:15  | Non-primary trail drawing, setting up trail highlight           |
-| Total | 30:40 |                                                                 |
+| 20.4  | 0:35  | Finishing up trail highlighting                                 |
+| Total | 31:15 |                                                                 |

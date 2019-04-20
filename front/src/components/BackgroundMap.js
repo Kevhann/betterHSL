@@ -34,7 +34,7 @@ const BackgroundMap = ({ latlng, setLatlng, routes, activeTrail }) => {
     }
     console.log("alltrails:", alltrails)
     setTrails(alltrails)
-  }, [routes])
+  }, [routes, activeTrail])
   return (
     <>
       {console.log("latlng juuri ennen mappia: ", latlng)}
