@@ -7,27 +7,35 @@
   position: sticky;
   padding: 10px;
   z-index: 1;
+  width: 400px;
 }
 
-.menu {
-  background-color: lightblue;
-  z-index: 2;
+.ui.menu {
+  z-index: 10;
+  margin-bottom: 0;
+  height: 3em;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
 }
 
 .leaflet-container {
   position: absolute;
-  height: 100vh;
+  height: 100%;
   width: 100%;
+  left: 400px;
   z-index: 0;
 }
 
 .divided {
+  max-width: 400px;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .divider {
-  flex-grow: 1;
-  border-bottom: 5px solid red;
+  width: 30px;
+  border-bottom: 5px solid;
   margin: 5px;
 }

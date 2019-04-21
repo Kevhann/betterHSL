@@ -1,13 +1,13 @@
-import React, { useState } from "react"
-import { useApolloClient } from "react-apollo-hooks"
-import { gql } from "apollo-boost"
-import axios from "axios"
-import Route from "./Route"
-import AutocompleteSearchForm from "./AutocompleteSearchForm"
-import { Segment, Form, Button, Icon } from "semantic-ui-react"
-import { connect } from "react-redux"
-import { setRoutes } from "../reducers/routeReducer"
-import { setBackgroundLocation } from "../reducers/backgroundMapReducer"
+import React, { useState } from 'react'
+import { useApolloClient } from 'react-apollo-hooks'
+import { gql } from 'apollo-boost'
+import axios from 'axios'
+import Route from './Route'
+import AutocompleteSearchForm from './AutocompleteSearchForm'
+import { Segment, Form, Button, Icon } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { setRoutes } from '../reducers/routeReducer'
+import { setBackgroundLocation } from '../reducers/backgroundMapReducer'
 
 const planRoute = gql`
   query planRoute(
@@ -62,18 +62,18 @@ const planRoute = gql`
 `
 
 const SearchForm = ({ routes, setRoutes, setBackgroundLocation }) => {
-  const [from, setFrom] = useState("")
-  const [to, setTo] = useState("")
-  console.log("from: ", from)
-  console.log("to: ", to)
+  const [from, setFrom] = useState('berliininkatu')
+  const [to, setTo] = useState('hösmäri')
+  console.log('from: ', from)
+  console.log('to: ', to)
   const client = useApolloClient()
-  let itineraryid = 0
+  let itineraryid = -1
 
   const submit = async event => {
     event.preventDefault()
-    console.log("routes:", routes)
+    console.log('routes:', routes)
     setRoutes([])
-    if (from !== "" && to !== "") {
+    if (from !== '' && to !== '') {
       const routeFrom = await axios.get(
         `https://api.digitransit.fi/geocoding/v1/search?text=${from}&size=1`
       )
@@ -97,15 +97,15 @@ const SearchForm = ({ routes, setRoutes, setBackgroundLocation }) => {
         }
       })
       console.log(
-        "planned route search formissa: ",
+        'planned route search formissa: ',
         plannedRoute.data.planRoute
       )
       const newRoutes = plannedRoute.data.planRoute
       setRoutes(newRoutes)
     }
 
-    setFrom("")
-    setTo("")
+    setFrom('')
+    setTo('')
   }
 
   return (
@@ -137,16 +137,17 @@ const SearchForm = ({ routes, setRoutes, setBackgroundLocation }) => {
         </Form>
       </Segment>
       <div>
-        {routes.map(route => (
-          <div>
-            <p />
-            <div key={route.duration}>
-              {console.log("route: ", route)}
-              <Route itinerary={route} itineraryid={itineraryid} />
-              {console.log(itineraryid++)}
+        {routes.map(route => {
+          itineraryid++
+          return (
+            <div>
+              <p />
+              <div key={route.duration}>
+                <Route itinerary={route} itineraryid={itineraryid} />
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   )

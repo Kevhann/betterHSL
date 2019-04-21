@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Leg from './Leg'
-import { Accordion, Icon } from 'semantic-ui-react'
-import Timeline from 'react-timeline-semantic-ui'
+import { Accordion } from 'semantic-ui-react'
 import { Grid } from 'semantic-ui-react'
 import { setActiveTrail } from '../reducers/trailReducer'
 import { connect } from 'react-redux'
@@ -12,16 +11,13 @@ const Route = ({ itinerary, activeTrail, setActiveTrail, itineraryid }) => {
 
   const handleClick = (e, titleProps) => {
     const { index } = titleProps
-    const newIndex = activeIndex === index ? -1 : index
+    const isActive = activeIndex === index ? -1 : index
     console.log('active trail:', activeTrail)
     console.log('route titleprops: ', titleProps)
 
-    /* tää index/newindex ei ookkaan sitä mitä halutaan activeindexille, vaatii viel hinkkaamista
-    Tää muuttaa sen active hommelin sillonki ku sulkee jonkun toisen jos on ollu monta auki */
     setActiveTrail(itineraryid)
-    setActiveIndex(newIndex)
+    setActiveIndex(isActive)
   }
-  console.log('haloo')
 
   return (
     <p>

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react"
-import "leaflet/dist/leaflet.css"
-import { Map, Marker, Popup, TileLayer, Polyline } from "react-leaflet"
-import { connect } from "react-redux"
-import { setBackgroundLocation } from "../reducers/backgroundMapReducer"
-import { setActiveTrail } from "../reducers/trailReducer"
-import polyUtil from "polyline-encoded"
+import React, { useState, useEffect } from 'react'
+import 'leaflet/dist/leaflet.css'
+import { Map, Marker, Popup, TileLayer, Polyline } from 'react-leaflet'
+import { connect } from 'react-redux'
+import { setBackgroundLocation } from '../reducers/backgroundMapReducer'
+import { setActiveTrail } from '../reducers/trailReducer'
+import polyUtil from 'polyline-encoded'
 
 const BackgroundMap = ({ latlng, setLatlng, routes, activeTrail }) => {
   const [trails, setTrails] = useState([])
@@ -16,28 +16,32 @@ const BackgroundMap = ({ latlng, setLatlng, routes, activeTrail }) => {
       alltrails = routes.map(route =>
         route.legs.map(leg => {
           const decodedTrail = polyUtil.decode(leg.legGeometry.points)
-          return { color: "gray", decodedTrail }
+          return { color: 'gray', decodedTrail }
         })
       )
+      console.log('activeTrail:', activeTrail)
+      console.log('routes:', routes)
 
       const placeholder = routes[activeTrail].legs.map(leg => {
-        let color = "red"
-        if (leg.mode === "WALK") {
-          color = "blue"
-        } else if (leg.mode === "SUBWAY") {
-          color = "orange"
+        let color = 'red'
+        if (leg.mode === 'WALK') {
+          color = 'green'
+        } else if (leg.mode === 'SUBWAY') {
+          color = 'orange'
+        } else if (leg.mode === 'BUS') {
+          color = 'blue'
         }
         const decodedTrail = polyUtil.decode(leg.legGeometry.points)
         return { color, decodedTrail, active: true }
       })
       alltrails.push(placeholder)
     }
-    console.log("alltrails:", alltrails)
+    console.log('alltrails:', alltrails)
     setTrails(alltrails)
   }, [routes, activeTrail])
   return (
     <>
-      {console.log("latlng juuri ennen mappia: ", latlng)}
+      {console.log('latlng juuri ennen mappia: ', latlng)}
       <Map
         center={latlng}
         zoom={12}
@@ -53,14 +57,14 @@ const BackgroundMap = ({ latlng, setLatlng, routes, activeTrail }) => {
           setLatlng([e.latlng.lat, e.latlng.lng])
         }}
       >
-        {console.log("routes bgmapissa: ", routes)}
-        {console.log("trails ennen rendausta: ", trails)}
+        {console.log('routes bgmapissa: ', routes)}
+        {console.log('trails ennen rendausta: ', trails)}
         {trails.map(trail =>
           trail.map(leg => (
             <Polyline color={leg.color} positions={leg.decodedTrail} />
           ))
         )}
-        {console.log("trails rendauksen jälkeen: ", trails)}
+        {console.log('trails rendauksen jälkeen: ', trails)}
         }
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
