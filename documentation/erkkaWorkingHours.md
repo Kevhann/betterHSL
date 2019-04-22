@@ -16,4 +16,5 @@
 | 19.4  | 2:15  | Non-primary trail drawing, setting up trail highlight                             |
 | 20.4  | 0:35  | Finishing up trail highlighting                                                   |
 | 21.4  | 1:45  | Aligning queries and results to the left after initial query, css experimentation |
-| Total | 33:00 |                                                                                   |
+| 22.4  | 4:25  | Added switching between main view and side view, fixed map css alignment          |
+| Total | 37:25 |                                                                                   |

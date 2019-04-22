@@ -3,39 +3,65 @@
   max-height: 348px;
 }
 
-.searchForm {
+.expand_route {
+  position: absolute;
+  left: 90%;
+}
+
+.startForm {
+  position: absolute;
+  left: 5rem;
+  right: 5rem;
+  padding-top: 1rem;
+  z-index: 1;
+}
+
+.resultsForm {
   position: sticky;
   padding: 10px;
   z-index: 1;
-  width: 400px;
+  width: 30rem;
+}
+
+.startMap {
+  position: absolute;
+  height: 95vh;
+  width: 100%;
+  z-index: 0;
+}
+.resultsMap {
+  position: absolute;
+  height: 95vh;
+  left: 30rem;
+  right: 0;
+  z-index: 0;
 }
 
 .ui.menu {
-  z-index: 10;
+  z-index: 1;
   margin-bottom: 0;
-  height: 3em;
+  min-height: 25px;
+  height: 5vh;
   -moz-border-radius: 0px;
   -webkit-border-radius: 0px;
   border-radius: 0px;
 }
 
-.leaflet-container {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  left: 400px;
-  z-index: 0;
+.vehicleNumber {
+  align-items: center;
 }
 
 .divided {
-  max-width: 400px;
+  max-width: 95%;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 }
 
 .divider {
-  width: 30px;
+  flex-grow: 1;
   border-bottom: 5px solid;
   margin: 5px;
 }
+
+

@@ -1,42 +1,51 @@
-import React from 'react'
+import React from "react"
 import {
   formatDistance,
   formatTime,
   formatDuration
-} from '../functions/formatter'
-import { Icon, Grid } from 'semantic-ui-react'
+} from "../functions/formatter"
+import { Icon, Grid } from "semantic-ui-react"
 
 const RoutePreview = ({ route }) => {
-  console.log('route:', route)
+  console.log("route:", route)
   const arrival = formatTime(route.legs[route.legs.length - 1].endTime)
+  const departure = formatTime(route.legs[0].startTime)
   return (
-    <span className="divided">
-      <Icon name="angle down" />
-      {route.legs.map(leg => {
-        let color = 'red'
-        if (leg.mode === 'WALK') {
-          color = 'green'
-        } else if (leg.mode === 'SUBWAY') {
-          color = 'orange'
-        } else if (leg.mode === 'BUS') {
-          color = 'blue'
-        }
-        return (
-          <>
-            <span>{formatTime(leg.startTime)}</span>
-
-            {leg.mode === 'WALK' && <span>{leg.mode} </span>}
-            {leg.mode !== 'WALK' && (
+    <>
+      <span className="divided">
+        <span>{departure}</span>
+        {route.legs.map(leg => {
+          let color = "red"
+          let icon = "train"
+          if (leg.mode === "WALK") {
+            return <></>
+          } else if (leg.mode === "SUBWAY") {
+            color = "orange"
+            icon = "subway"
+          } else if (leg.mode === "BUS") {
+            color = "blue"
+            icon = "bus"
+          }
+          return (
+            <>
               <span>
-                {leg.mode} {leg.trip.route.shortName}
+                <Icon name={icon} />
               </span>
-            )}
-            <span style={{ color }} className="divider" />
-          </>
-        )
+              <span style={{ color }} className="divider" />
+            </>
+          )
+        })}
+        <span>{arrival}</span>
+        <Icon name="angle down" className="expand_route" size="big" />
+      </span>
+      <div />
+      {route.legs.map(leg => {
+        if (leg.mode === "WALK") {
+          return <></>
+        }
+        return <span className="vehicleNumber">{leg.trip.route.shortName}</span>
       })}
-      <span>{arrival}</span>
-    </span>
+    </>
   )
 }
 export default RoutePreview

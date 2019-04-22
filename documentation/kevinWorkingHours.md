@@ -16,4 +16,5 @@
 |       |       | route trail drawing, add rest api queries / modify graphql query                  |
 | 20.4  | 2:10  | Refactoring of formatter functions, bare version of route preview, studying css   |
 | 21.4  | 2:30  | Aligning queries and results to the left after initial query, css experimentation |
-| Total | 33:50 |                                                                                   |
+| 22.4  | 4:25  | Added switching between main view and side view, fixed map css alignment          |
+| Total | 38:15 |                                                                                   |

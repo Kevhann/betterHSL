@@ -15,7 +15,7 @@ export const formatDuration = duration => {
   const durationInSeconds = duration
   const durationHours = Math.floor(durationInSeconds / 3600)
   const durationMinutes = Math.floor((durationInSeconds % 3600) / 60)
-  const conditionalHours = durationHours === 0 ? '' : `${durationHours} h`
+  const conditionalHours = durationHours === 0 ? "" : `${durationHours} h`
   return `${conditionalHours} ${durationMinutes} min`
 }
 
@@ -23,5 +23,8 @@ export const formatTime = time => {
   const date = new Date(time)
   const hour = date.getHours()
   const minute = date.getMinutes()
+  if (minute < 10) {
+    return `${hour}:0${minute}`
+  }
   return `${hour}:${minute}`
 }
