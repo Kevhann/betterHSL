@@ -47,8 +47,20 @@
   border-radius: 0px;
 }
 
-.vehicleNumber {
-  align-items: center;
+.previewVehicleNumbers {
+  flex-grow: 1;
+  margin-left: 5px;
+  min-width: 3ch;
+}
+
+.vehicleNumbers {
+  position: relative;
+  left: 10%;
+  display: flex;
+  flex-direction: row;
+  width: 74%;
+  text-align: start;
+  min-height: 5px;
 }
 
 .divided {
@@ -64,4 +76,7 @@
   margin: 5px;
 }
 
-
+.previewDeparture {
+  position: relative;
+  padding-right: 5px;
+}
