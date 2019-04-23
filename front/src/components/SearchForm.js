@@ -1,15 +1,15 @@
-import React, { useState } from "react"
-import { useApolloClient } from "react-apollo-hooks"
-import { gql } from "apollo-boost"
-import axios from "axios"
-import Routes from "./Routes"
-import AutocompleteSearchForm from "./AutocompleteSearchForm"
-import { Segment, Form, Button, Icon, Loader } from "semantic-ui-react"
-import { connect } from "react-redux"
-import { setRoutes } from "../reducers/routeReducer"
-import { setBackgroundLocation } from "../reducers/backgroundMapReducer"
-import { setMapClass } from "../reducers/mapClassReducer"
-import { setFormClass } from "../reducers/formClassReducer"
+import React, { useState } from 'react'
+import { useApolloClient } from 'react-apollo-hooks'
+import { gql } from 'apollo-boost'
+import axios from 'axios'
+import Routes from './Routes'
+import AutocompleteSearchForm from './AutocompleteSearchForm'
+import { Segment, Form, Button, Icon, Loader } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { setRoutes } from '../reducers/routeReducer'
+import { setBackgroundLocation } from '../reducers/backgroundMapReducer'
+import { setMapClass } from '../reducers/mapClassReducer'
+import { setFormClass } from '../reducers/formClassReducer'
 
 const planRoute = gql`
   query planRoute(
@@ -70,17 +70,17 @@ const SearchForm = ({
   classState,
   setClassState
 }) => {
-  const [from, setFrom] = useState("berliininkatu")
-  const [to, setTo] = useState("hösmäri")
+  const [from, setFrom] = useState('berliininkatu')
+  const [to, setTo] = useState('hösmäri')
   const [loading, setLoading] = useState(false)
 
   const client = useApolloClient()
   const submit = async event => {
     event.preventDefault()
     setRoutes([])
-    if (from !== "" && to !== "") {
+    if (from !== '' && to !== '') {
       setLoading(true)
-      setClassState("resultsForm")
+      setClassState('resultsForm')
       const routeFrom = await axios.get(
         `https://api.digitransit.fi/geocoding/v1/search?text=${from}&size=1`
       )
@@ -93,7 +93,7 @@ const SearchForm = ({
       const coordinatesTo = routeTo.data.features[0].geometry.coordinates
 
       setBackgroundLocation([coordinatesFrom[1], coordinatesFrom[0]])
-      setMapClass("resultsMap")
+      setMapClass('resultsMap')
 
       const plannedRoute = await client.query({
         query: planRoute,
@@ -138,10 +138,8 @@ const SearchForm = ({
           </Form.Field>
         </Form>
       </Segment>
-      <div>
-        <Loader inline="centered" active={loading} />
-        <Routes />
-      </div>
+      <Loader inline="centered" active={loading} />
+      <Routes />
     </div>
   )
 }

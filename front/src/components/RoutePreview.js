@@ -10,8 +10,29 @@ const RoutePreview = ({ route }) => {
   console.log('route:', route)
   const arrival = formatTime(route.legs[route.legs.length - 1].endTime)
   const departure = formatTime(route.legs[0].startTime)
+  let vehiclelegs = 0
+  route.legs.forEach(leg => {
+    if (leg.mode !== 'WALK') vehiclelegs++
+  })
+
+  const maxwidth = 33 / vehiclelegs + 'ch'
+
   return (
     <>
+      <span className="routePreviewContainer">
+        {route.legs.map(leg => {
+          if (leg.mode === 'WALK') {
+            return <></>
+          }
+
+          return (
+            <span className="routePreview" style={{ maxWidth: maxwidth }}>
+              {leg.from.stop.name}
+            </span>
+          )
+        })}
+      </span>
+      <div />
       <span className="divided">
         <span className="previewDeparture">{departure}</span>
 
@@ -39,17 +60,19 @@ const RoutePreview = ({ route }) => {
         <span className="previewArrival">{arrival}</span>
         <Icon name="angle down" className="expand_route" size="big" />
       </span>
-      <div className="vehicleNumbers">
-        {route.legs.map(leg => {
-          if (leg.mode === 'WALK') {
-            return <></>
-          }
-          return (
-            <span className="previewVehicleNumbers">
-              {leg.trip.route.shortName}
-            </span>
-          )
-        })}
+      <div>
+        <span className="routePreviewContainer">
+          {route.legs.map(leg => {
+            if (leg.mode === 'WALK') {
+              return <></>
+            }
+            return (
+              <span className="routePreview" style={{ maxWidth: maxwidth }}>
+                {leg.trip.route.shortName}
+              </span>
+            )
+          })}
+        </span>
       </div>
     </>
   )

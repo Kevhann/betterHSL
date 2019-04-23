@@ -3,11 +3,6 @@
   max-height: 348px;
 }
 
-.expand_route {
-  position: absolute;
-  left: 90%;
-}
-
 .startForm {
   position: absolute;
   left: 5rem;
@@ -17,6 +12,8 @@
 }
 
 .resultsForm {
+  height: 100%;
+  overflow: auto;
   position: sticky;
   padding: 10px;
   z-index: 1;
@@ -37,6 +34,11 @@
   z-index: 0;
 }
 
+.expand_route {
+  position: absolute;
+  left: 90%;
+}
+
 .ui.menu {
   z-index: 1;
   margin-bottom: 0;
@@ -47,20 +49,21 @@
   border-radius: 0px;
 }
 
-.previewVehicleNumbers {
+.routePreview {
   flex-grow: 1;
   margin-left: 5px;
-  min-width: 3ch;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
 }
 
-.vehicleNumbers {
+.routePreviewContainer {
   position: relative;
   left: 10%;
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   width: 74%;
   text-align: start;
-  min-height: 5px;
 }
 
 .divided {
@@ -79,4 +82,8 @@
 .previewDeparture {
   position: relative;
   padding-right: 5px;
+}
+
+.previewDuration {
+  position: relative;
 }

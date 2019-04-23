@@ -1,9 +1,9 @@
-import React, { useState } from "react"
-import Leg from "./Leg"
-import { Accordion } from "semantic-ui-react"
-import { setActiveTrail } from "../reducers/trailReducer"
-import { connect } from "react-redux"
-import RoutePreview from "./RoutePreview"
+import React, { useState } from 'react'
+import Leg from './Leg'
+import { Accordion } from 'semantic-ui-react'
+import { setActiveTrail } from '../reducers/trailReducer'
+import { connect } from 'react-redux'
+import RoutePreview from './RoutePreview'
 
 const Routes = ({ setActiveTrail, routes }) => {
   const [activeIndex, setActiveIndex] = useState(-1)
@@ -17,6 +17,8 @@ const Routes = ({ setActiveTrail, routes }) => {
     }
     setActiveIndex(isActive)
   }
+
+  if (routes.length === 0) return <></>
 
   return (
     <Accordion fluid styled>
