@@ -12,8 +12,9 @@
 }
 
 .resultsForm {
-  height: 100%;
-  overflow: auto;
+  height: 95vh;
+  overflow-y: scroll;
+  max-height: 95vh;
   position: sticky;
   padding: 10px;
   z-index: 1;
@@ -86,4 +87,11 @@
 
 .previewDuration {
   position: relative;
+}
+
+.toggleSearchTime {
+  position: absolute;
+  right: 50;
+  align-items: center;
+  display: inline-flex; 
 }

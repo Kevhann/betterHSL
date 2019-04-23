@@ -1,15 +1,24 @@
-import React, { useState } from 'react'
-import { useApolloClient } from 'react-apollo-hooks'
-import { gql } from 'apollo-boost'
-import axios from 'axios'
-import Routes from './Routes'
-import AutocompleteSearchForm from './AutocompleteSearchForm'
-import { Segment, Form, Button, Icon, Loader } from 'semantic-ui-react'
-import { connect } from 'react-redux'
-import { setRoutes } from '../reducers/routeReducer'
-import { setBackgroundLocation } from '../reducers/backgroundMapReducer'
-import { setMapClass } from '../reducers/mapClassReducer'
-import { setFormClass } from '../reducers/formClassReducer'
+import React, { useState } from "react"
+import { useApolloClient } from "react-apollo-hooks"
+import { gql } from "apollo-boost"
+import axios from "axios"
+import Routes from "./Routes"
+import AutocompleteSearchForm from "./AutocompleteSearchForm"
+import {
+  Segment,
+  Form,
+  Button,
+  Icon,
+  Loader,
+  Dropdown,
+  Input
+} from "semantic-ui-react"
+import { connect } from "react-redux"
+import { setRoutes } from "../reducers/routeReducer"
+import { setBackgroundLocation } from "../reducers/backgroundMapReducer"
+import { setMapClass } from "../reducers/mapClassReducer"
+import { setFormClass } from "../reducers/formClassReducer"
+import { formatTime } from "../functions/formatter"
 
 const planRoute = gql`
   query planRoute(
@@ -70,17 +79,16 @@ const SearchForm = ({
   classState,
   setClassState
 }) => {
-  const [from, setFrom] = useState('berliininkatu')
-  const [to, setTo] = useState('hösmäri')
+  const [from, setFrom] = useState("berliininkatu")
+  const [to, setTo] = useState("hösmäri")
   const [loading, setLoading] = useState(false)
-
   const client = useApolloClient()
   const submit = async event => {
     event.preventDefault()
     setRoutes([])
-    if (from !== '' && to !== '') {
+    if (from !== "" && to !== "") {
       setLoading(true)
-      setClassState('resultsForm')
+      setClassState("resultsForm")
       const routeFrom = await axios.get(
         `https://api.digitransit.fi/geocoding/v1/search?text=${from}&size=1`
       )
@@ -93,7 +101,7 @@ const SearchForm = ({
       const coordinatesTo = routeTo.data.features[0].geometry.coordinates
 
       setBackgroundLocation([coordinatesFrom[1], coordinatesFrom[0]])
-      setMapClass('resultsMap')
+      setMapClass("resultsMap")
 
       const plannedRoute = await client.query({
         query: planRoute,
@@ -128,14 +136,33 @@ const SearchForm = ({
               fieldName="to"
             />
           </Form.Field>
-          <Form.Field>
+          <span className="toggleSearchTime">
             <Button animated type="submit">
               <Button.Content visible>Search</Button.Content>
               <Button.Content hidden>
                 <Icon name="arrow right" />
               </Button.Content>
             </Button>
-          </Form.Field>
+            <span>
+              <Dropdown
+                style={{ minWidth: "13ch" }}
+                defaultValue={false}
+                selection
+                fluid
+                options={[
+                  { key: 1, value: false, text: "leave at" },
+                  { key: 2, value: true, text: "arrive by" }
+                ]}
+              />
+            </span>
+            <span>
+              <Input
+                defaultValue={formatTime(Date.now())}
+                type="time"
+                style={{ maxWidth: "100px" }}
+              />
+            </span>
+          </span>
         </Form>
       </Segment>
       <Loader inline="centered" active={loading} />

@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import Leg from './Leg'
-import { Accordion } from 'semantic-ui-react'
-import { setActiveTrail } from '../reducers/trailReducer'
-import { connect } from 'react-redux'
-import RoutePreview from './RoutePreview'
+import React, { useState } from "react"
+import Leg from "./Leg"
+import { Accordion } from "semantic-ui-react"
+import { setActiveTrail } from "../reducers/trailReducer"
+import { connect } from "react-redux"
+import RoutePreview from "./RoutePreview"
 
 const Routes = ({ setActiveTrail, routes }) => {
   const [activeIndex, setActiveIndex] = useState(-1)
@@ -31,14 +31,14 @@ const Routes = ({ setActiveTrail, routes }) => {
               index={itineraryid}
               active={activeIndex === itineraryid}
             >
-              <span>
+              <span key={route.distance}>
                 <RoutePreview route={route} />
               </span>
             </Accordion.Title>
             <Accordion.Content active={activeIndex === itineraryid}>
               <b>Route legs</b>
               {route.legs.map(leg => (
-                <div>
+                <div key={leg.distance}>
                   <p />
                   <Leg leg={leg} />
                 </div>

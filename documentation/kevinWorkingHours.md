@@ -17,4 +17,5 @@
 | 20.4  | 2:10  | Refactoring of formatter functions, bare version of route preview, studying css   |
 | 21.4  | 2:30  | Aligning queries and results to the left after initial query, css experimentation |
 | 22.4  | 5:10  | Added switching between main view and side view, fixed map css alignment          |
-| Total | 39:00 |                                                                                   |
+| 23.4  | 5:20  | route preview styling, setting up more search options, route view scrollable      |
+| Total | 44:20 |                                                                                   |

@@ -25,6 +25,7 @@ const typeDefs = gql`
       lonFrom: Float
       latTo: Float
       lonTo: Float
+      numItineraries: Int
     ): [Itinerary]
   }
   type Stop {
@@ -89,6 +90,7 @@ const resolvers = {
           plan(
             from: {lat: ${args.latFrom}, lon: ${args.lonFrom}}
             to: {lat: ${args.latTo}, lon: ${args.lonTo}}
+            numItineraries: 5
           )
           {
             itineraries {
