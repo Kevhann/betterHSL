@@ -90,8 +90,8 @@
 }
 
 .toggleSearchTime {
-  position: absolute;
+  position: relative;
   right: 50;
   align-items: center;
-  display: inline-flex; 
+  display: inline-flex;
 }

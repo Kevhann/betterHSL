@@ -28,3 +28,12 @@ export const formatTime = time => {
   }
   return `${hour}:${minute}`
 }
+
+export const getCurrentDate = () => {
+  const date = new Date()
+  const months =
+    date.getMonth() < 9 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`
+  const years = date.getFullYear()
+  const days = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`
+  return `${years}-${months}-${days}`
+}

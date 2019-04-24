@@ -26,6 +26,8 @@ const typeDefs = gql`
       latTo: Float
       lonTo: Float
       numItineraries: Int
+      date: String
+      time: String
     ): [Itinerary]
   }
   type Stop {
@@ -85,11 +87,15 @@ const resolvers = {
       return res.data.stops
     },
     planRoute: async (root, args) => {
+      console.log("vars", args)
+
       const res = await fetch({
         query: `query {
           plan(
             from: {lat: ${args.latFrom}, lon: ${args.lonFrom}}
             to: {lat: ${args.latTo}, lon: ${args.lonTo}}
+            date: "${args.date}"
+            time: "${args.time}"
             numItineraries: 5
           )
           {

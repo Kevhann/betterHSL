@@ -18,4 +18,5 @@
 | 21.4  | 2:30  | Aligning queries and results to the left after initial query, css experimentation |
 | 22.4  | 5:10  | Added switching between main view and side view, fixed map css alignment          |
 | 23.4  | 5:20  | route preview styling, setting up more search options, route view scrollable      |
-| Total | 44:20 |                                                                                   |
+| 24.4  | 2:00  | Plan routes date and time parameters, fixed misaligned searchform elements        |
+| Total | 46:20 |                                                                                   |

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useApolloClient } from "react-apollo-hooks"
 import { gql } from "apollo-boost"
 import axios from "axios"
@@ -18,7 +18,7 @@ import { setRoutes } from "../reducers/routeReducer"
 import { setBackgroundLocation } from "../reducers/backgroundMapReducer"
 import { setMapClass } from "../reducers/mapClassReducer"
 import { setFormClass } from "../reducers/formClassReducer"
-import { formatTime } from "../functions/formatter"
+import { formatTime, getCurrentDate } from "../functions/formatter"
 
 const planRoute = gql`
   query planRoute(
@@ -26,12 +26,16 @@ const planRoute = gql`
     $lonFrom: Float
     $latTo: Float
     $lonTo: Float
+    $time: String
+    $date: String
   ) {
     planRoute(
       latFrom: $latFrom
       lonFrom: $lonFrom
       latTo: $latTo
       lonTo: $lonTo
+      time: $time
+      date: $date
     ) {
       walkDistance
       duration
@@ -82,7 +86,14 @@ const SearchForm = ({
   const [from, setFrom] = useState("berliininkatu")
   const [to, setTo] = useState("hösmäri")
   const [loading, setLoading] = useState(false)
+  const [planTime, setPlanTime] = useState("")
+  const [planDate, setPlanDate] = useState("")
+
   const client = useApolloClient()
+  useEffect(() => {
+    setPlanTime(formatTime(Date.now()))
+    setPlanDate(getCurrentDate())
+  }, [])
   const submit = async event => {
     event.preventDefault()
     setRoutes([])
@@ -109,7 +120,9 @@ const SearchForm = ({
           latFrom: coordinatesFrom[1],
           lonFrom: coordinatesFrom[0],
           latTo: coordinatesTo[1],
-          lonTo: coordinatesTo[0]
+          lonTo: coordinatesTo[0],
+          time: `${planTime}:00`,
+          date: planDate
         }
       })
       const newRoutes = plannedRoute.data.planRoute
@@ -136,33 +149,45 @@ const SearchForm = ({
               fieldName="to"
             />
           </Form.Field>
-          <span className="toggleSearchTime">
-            <Button animated type="submit">
-              <Button.Content visible>Search</Button.Content>
-              <Button.Content hidden>
-                <Icon name="arrow right" />
-              </Button.Content>
-            </Button>
-            <span>
-              <Dropdown
-                style={{ minWidth: "13ch" }}
-                defaultValue={false}
-                selection
-                fluid
-                options={[
-                  { key: 1, value: false, text: "leave at" },
-                  { key: 2, value: true, text: "arrive by" }
-                ]}
-              />
-            </span>
-            <span>
-              <Input
-                defaultValue={formatTime(Date.now())}
-                type="time"
-                style={{ maxWidth: "100px" }}
-              />
-            </span>
-          </span>
+
+          <Form.Field>
+            <div className="toggleSearchTime">
+              <Button animated type="submit">
+                <Button.Content visible>Search</Button.Content>
+                <Button.Content hidden>
+                  <Icon name="arrow right" />
+                </Button.Content>
+              </Button>
+              <span>
+                <Dropdown
+                  style={{ minWidth: "13ch" }}
+                  defaultValue={false}
+                  selection
+                  fluid
+                  options={[
+                    { key: 1, value: false, text: "leave at" },
+                    { key: 2, value: true, text: "arrive by" }
+                  ]}
+                />
+              </span>
+              <span>
+                <Input
+                  defaultValue={planTime}
+                  type="time"
+                  style={{ maxWidth: "150px" }}
+                  onChange={event => setPlanTime(event.target.value)}
+                />
+              </span>
+              <span>
+                <Input
+                  type="date"
+                  style={{ maxWidth: "160px" }}
+                  value={planDate}
+                  onChange={event => setPlanDate(event.target.value)}
+                />
+              </span>
+            </div>
+          </Form.Field>
         </Form>
       </Segment>
       <Loader inline="centered" active={loading} />
