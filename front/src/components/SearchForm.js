@@ -137,7 +137,7 @@ const SearchForm = ({
 
   return (
     <div className={classState}>
-      <Segment>
+      <Segment raised>
         <Form onSubmit={submit}>
           <Form.Field>
             <AutocompleteSearchForm
@@ -164,7 +164,11 @@ const SearchForm = ({
               </Button>
               <span>
                 <Dropdown
-                  style={{ minWidth: "13ch" }}
+                  style={{
+                    minWidth: "11ch",
+                    paddingLeft: "10px",
+                    paddingRight: "10px"
+                  }}
                   defaultValue={false}
                   selection
                   fluid
@@ -181,14 +185,18 @@ const SearchForm = ({
                 <Input
                   defaultValue={planTime}
                   type="time"
-                  style={{ maxWidth: "150px" }}
+                  style={{
+                    maxWidth: "150px",
+                    paddingLeft: "5px",
+                    paddingRight: "5px"
+                  }}
                   onChange={event => setPlanTime(event.target.value)}
                 />
               </span>
               <span>
                 <Input
                   type="date"
-                  style={{ maxWidth: "160px" }}
+                  style={{ maxWidth: "163px" }}
                   value={planDate}
                   onChange={event => setPlanDate(event.target.value)}
                 />
@@ -196,9 +204,9 @@ const SearchForm = ({
             </div>
           </Form.Field>
         </Form>
+        <Routes />
       </Segment>
       <Loader inline="centered" active={loading} />
-      <Routes />
     </div>
   )
 }

@@ -16,9 +16,8 @@
   overflow-y: scroll;
   max-height: 95vh;
   position: sticky;
-  padding: 10px;
   z-index: 1;
-  width: 30rem;
+  width: 35rem;
 }
 
 .startMap {
@@ -30,7 +29,7 @@
 .resultsMap {
   position: absolute;
   height: 95vh;
-  left: 30rem;
+  left: 35rem;
   right: 0;
   z-index: 0;
 }
@@ -91,7 +90,7 @@
 
 .toggleSearchTime {
   position: relative;
-  right: 50;
   align-items: center;
   display: inline-flex;
 }
+

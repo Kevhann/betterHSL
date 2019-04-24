@@ -21,33 +21,36 @@ const Routes = ({ setActiveTrail, routes }) => {
   if (routes.length === 0) return <></>
 
   return (
-    <Accordion fluid styled>
-      {routes.map(route => {
-        itineraryid++
-        return (
-          <>
-            <Accordion.Title
-              onClick={handleClick}
-              index={itineraryid}
-              active={activeIndex === itineraryid}
-            >
-              <span key={route.distance}>
-                <RoutePreview route={route} />
-              </span>
-            </Accordion.Title>
-            <Accordion.Content active={activeIndex === itineraryid}>
-              <b>Route legs</b>
-              {route.legs.map(leg => (
-                <div key={leg.distance}>
-                  <p />
-                  <Leg leg={leg} />
-                </div>
-              ))}
-            </Accordion.Content>
-          </>
-        )
-      })}
-    </Accordion>
+    <>
+      <p />
+      <Accordion fluid styled>
+        {routes.map(route => {
+          itineraryid++
+          return (
+            <>
+              <Accordion.Title
+                onClick={handleClick}
+                index={itineraryid}
+                active={activeIndex === itineraryid}
+              >
+                <span key={route.distance}>
+                  <RoutePreview route={route} />
+                </span>
+              </Accordion.Title>
+              <Accordion.Content active={activeIndex === itineraryid}>
+                <b>Route legs</b>
+                {route.legs.map(leg => (
+                  <div key={leg.distance}>
+                    <p />
+                    <Leg leg={leg} />
+                  </div>
+                ))}
+              </Accordion.Content>
+            </>
+          )
+        })}
+      </Accordion>
+    </>
   )
 }
 
