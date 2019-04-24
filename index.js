@@ -146,7 +146,7 @@ const resolvers = {
   }
 }
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("/build"))
+  app.use("/", express.static("/build"))
 }
 const server = new ApolloServer({ typeDefs, resolvers })
 server
