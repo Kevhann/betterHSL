@@ -15,16 +15,17 @@ import { split } from "apollo-link"
 import { WebSocketLink } from "apollo-link-ws"
 import { getMainDefinition } from "apollo-utilities"
 
+import config from "./config"
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000/graphql`,
+  uri: config.WSPORT,
   options: {
     reconnect: true
   }
 })
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql"
+  uri: config.HTTPPORT
 })
 
 const authLink = setContext((_, { headers }) => {

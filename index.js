@@ -4,9 +4,11 @@ const jwt = require("jsonwebtoken")
 const { createApolloFetch } = require("apollo-fetch")
 const geocode = require("./apis/rest/geocode")
 const http = require("http")
+const cors = require("cors")
+const PORT = process.env.PORT || 3003
 
 const httpServer = http.createServer(geocode)
-httpServer.listen(3003, () => {
+httpServer.listen(PORT, () => {
   console.log("http geocode server running on port 3003")
 })
 
@@ -15,6 +17,7 @@ const HSL_ROUTE_API_URI =
 
 const fetch = new createApolloFetch({ uri: HSL_ROUTE_API_URI })
 
+//app.use(cors())
 console.log("connecting to", HSL_ROUTE_API_URI)
 
 const typeDefs = gql`
