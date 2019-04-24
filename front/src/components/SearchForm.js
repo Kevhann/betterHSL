@@ -28,6 +28,7 @@ const planRoute = gql`
     $lonTo: Float
     $time: String
     $date: String
+    $arriveBy: Boolean
   ) {
     planRoute(
       latFrom: $latFrom
@@ -36,6 +37,7 @@ const planRoute = gql`
       lonTo: $lonTo
       time: $time
       date: $date
+      arriveBy: $arriveBy
     ) {
       walkDistance
       duration
@@ -88,6 +90,7 @@ const SearchForm = ({
   const [loading, setLoading] = useState(false)
   const [planTime, setPlanTime] = useState("")
   const [planDate, setPlanDate] = useState("")
+  const [arriveBy, setArriveBy] = useState(false)
 
   const client = useApolloClient()
   useEffect(() => {
@@ -122,7 +125,8 @@ const SearchForm = ({
           latTo: coordinatesTo[1],
           lonTo: coordinatesTo[0],
           time: `${planTime}:00`,
-          date: planDate
+          date: planDate,
+          arriveBy
         }
       })
       const newRoutes = plannedRoute.data.planRoute
@@ -168,6 +172,9 @@ const SearchForm = ({
                     { key: 1, value: false, text: "leave at" },
                     { key: 2, value: true, text: "arrive by" }
                   ]}
+                  onChange={(event, { value }) => {
+                    setArriveBy(value)
+                  }}
                 />
               </span>
               <span>

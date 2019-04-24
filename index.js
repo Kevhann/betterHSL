@@ -28,6 +28,7 @@ const typeDefs = gql`
       numItineraries: Int
       date: String
       time: String
+      arriveBy: Boolean
     ): [Itinerary]
   }
   type Stop {
@@ -96,6 +97,7 @@ const resolvers = {
             to: {lat: ${args.latTo}, lon: ${args.lonTo}}
             date: "${args.date}"
             time: "${args.time}"
+            arriveBy: ${args.arriveBy}
             numItineraries: 5
           )
           {
