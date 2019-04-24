@@ -25,7 +25,7 @@ const wsLink = new WebSocketLink({
 })
 
 const httpLink = createHttpLink({
-  uri: config.HTTPPORT
+  uri: config.PORT
 })
 
 const authLink = setContext((_, { headers }) => {
