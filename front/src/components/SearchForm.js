@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react"
 import { useApolloClient } from "react-apollo-hooks"
-import { gql } from "apollo-boost"
-import axios from "axios"
 import Routes from "./Routes"
 import AutocompleteSearchForm from "./AutocompleteSearchForm"
 import {
@@ -19,64 +17,8 @@ import { setBackgroundLocation } from "../reducers/backgroundMapReducer"
 import { setMapClass } from "../reducers/mapClassReducer"
 import { setFormClass } from "../reducers/formClassReducer"
 import { formatTime, getCurrentDate } from "../functions/formatter"
-
-const planRoute = gql`
-  query planRoute(
-    $latFrom: Float
-    $lonFrom: Float
-    $latTo: Float
-    $lonTo: Float
-    $time: String
-    $date: String
-    $arriveBy: Boolean
-  ) {
-    planRoute(
-      latFrom: $latFrom
-      lonFrom: $lonFrom
-      latTo: $latTo
-      lonTo: $lonTo
-      time: $time
-      date: $date
-      arriveBy: $arriveBy
-    ) {
-      walkDistance
-      duration
-      legs {
-        legGeometry {
-          points
-        }
-        mode
-        startTime
-        endTime
-        trip {
-          route {
-            shortName
-            longName
-          }
-          tripHeadsign
-          stops {
-            name
-          }
-        }
-        from {
-          lat
-          lon
-          name
-          stop {
-            code
-            name
-          }
-        }
-        to {
-          lat
-          lon
-          name
-        }
-        distance
-      }
-    }
-  }
-`
+import planRoute from "../apis/planRoute"
+import geocoding from "../apis/geocoding"
 
 const SearchForm = ({
   setRoutes,
@@ -103,16 +45,9 @@ const SearchForm = ({
     if (from !== "" && to !== "") {
       setLoading(true)
       setClassState("resultsForm")
-      const routeFrom = await axios.get(
-        `https://api.digitransit.fi/geocoding/v1/search?text=${from}&size=1`
-      )
 
-      const routeTo = await axios.get(
-        `https://api.digitransit.fi/geocoding/v1/search?text=${to}&size=1`
-      )
-
-      const coordinatesFrom = routeFrom.data.features[0].geometry.coordinates
-      const coordinatesTo = routeTo.data.features[0].geometry.coordinates
+      const coordinatesFrom = await geocoding(from)
+      const coordinatesTo = await geocoding(to)
 
       setBackgroundLocation([coordinatesFrom[1], coordinatesFrom[0]])
       setMapClass("resultsMap")
@@ -137,7 +72,7 @@ const SearchForm = ({
 
   return (
     <div className={classState}>
-      <Segment raised>
+      <Segment raised style={{ marginBottom: 0 }}>
         <Form onSubmit={submit}>
           <Form.Field>
             <AutocompleteSearchForm
@@ -183,13 +118,9 @@ const SearchForm = ({
               </span>
               <span>
                 <Input
+                  className="timeInput"
                   defaultValue={planTime}
                   type="time"
-                  style={{
-                    maxWidth: "150px",
-                    paddingLeft: "5px",
-                    paddingRight: "5px"
-                  }}
                   onChange={event => setPlanTime(event.target.value)}
                 />
               </span>
@@ -204,9 +135,13 @@ const SearchForm = ({
             </div>
           </Form.Field>
         </Form>
-        <Routes />
       </Segment>
-      <Loader inline="centered" active={loading} />
+      <Routes />
+      <Loader
+        inline="centered"
+        active={loading}
+        style={{ marginTop: "10px" }}
+      />
     </div>
   )
 }

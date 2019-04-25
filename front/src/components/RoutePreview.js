@@ -15,7 +15,7 @@ const RoutePreview = ({ route }) => {
     if (leg.mode !== "WALK") vehiclelegs++
   })
 
-  const maxwidth = 33 / vehiclelegs + "ch"
+  const maxwidth = 41 / vehiclelegs + "ch"
 
   return (
     <>

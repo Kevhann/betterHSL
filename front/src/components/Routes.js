@@ -22,7 +22,6 @@ const Routes = ({ setActiveTrail, routes }) => {
 
   return (
     <>
-      <p />
       <Accordion fluid styled>
         {routes.map(route => {
           itineraryid++

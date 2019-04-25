@@ -36,7 +36,7 @@
 
 .expand_route {
   position: absolute;
-  left: 90%;
+  left: 93%;
 }
 
 .ui.menu {
@@ -59,15 +59,15 @@
 
 .routePreviewContainer {
   position: relative;
-  left: 10%;
+  left: 9%;
   display: inline-flex;
   flex-direction: row;
-  width: 74%;
+  width: 95%;
   text-align: start;
 }
 
 .divided {
-  max-width: 95%;
+  max-width: 96%;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -94,3 +94,6 @@
   display: inline-flex;
 }
 
+.timeInput {
+  max-width: 150px;
+}
