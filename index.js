@@ -1,9 +1,11 @@
 const mongoose = require("mongoose")
-const { ApolloServer, UserInputError, gql } = require("apollo-server")
+const { ApolloServer, UserInputError, gql } = require("apollo-server-express")
+
 const jwt = require("jsonwebtoken")
 const { createApolloFetch } = require("apollo-fetch")
 const cors = require("cors")
 const express = require("express")
+const graphqlHTTP = require("express-graphql")
 const app = express()
 
 const PORT = process.env.PORT || 3003
@@ -145,12 +147,19 @@ const resolvers = {
     }
   }
 }
-if (process.env.NODE_ENV === "production") {
-  app.use("/", express.static("/build"))
-}
+
+// app.listen(4000, () => {
+//   console.log("hv running")
+// })
+
 const server = new ApolloServer({ typeDefs, resolvers })
 console.log("env port: ", process.env.PORT)
+server.applyMiddleware({ app })
 
-server
-  .listen(process.env.PORT || 4000)
-  .then(({ url }) => console.log("server ready at", url))
+if (process.env.NODE_ENV === "production") {
+  app.use("/", express.static("build"))
+}
+
+const port = process.env.PORT || 4000
+app.listen(port)
+console.log("server starting at", port)

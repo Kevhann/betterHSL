@@ -6,7 +6,7 @@ import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks"
 import { Provider } from "react-redux"
 import store from "./store"
 
-import { ApolloClient } from "apollo-client"
+import { ApolloClient } from "apollo-boost"
 import { createHttpLink } from "apollo-link-http"
 import { InMemoryCache } from "apollo-cache-inmemory"
 import { setContext } from "apollo-link-context"
