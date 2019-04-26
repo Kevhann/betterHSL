@@ -148,13 +148,18 @@ const resolvers = {
   }
 }
 
-const server = new ApolloServer({ typeDefs, resolvers })
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  playground: true,
+  introspection: true
+})
 console.log("env port: ", process.env.PORT)
 server.applyMiddleware({ app })
 
-//if (process.env.NODE_ENV === "production") {
-app.use(express.static("build"))
-//}
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("build"))
+}
 
 const port = process.env.PORT || 4000
 app.listen(port)

@@ -19,4 +19,5 @@
 | 22.4  | 4:25  | Added switching between main view and side view, fixed map css alignment          |
 | 23.4  | 5:35  | route preview styling, setting up more search options, route view scrollable      |
 | 24.4  | 4:10  | Plan routes date and time parameters, fixed misaligned searchform elements, heroku|
-| Total | 47:10 |                                                                                   |
+| 26.4  | 4:20  | Fierce battle with deploying (locally and with heroku)                            |
+| Total | 51:30 |                                                                                   |

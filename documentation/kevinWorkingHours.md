@@ -20,4 +20,5 @@
 | 23.4  | 5:20  | route preview styling, setting up more search options, route view scrollable       |
 | 24.4  | 4:20  | Plan routes date and time parameters, fixed misaligned searchform elements, heroku |
 | 25.4  | 1:00  | Front refactoring, modified route preview css                                      |
-| Total | 49:40 |                                                                                    |
+| 26.4  | 4:20  | Fierce battle with deploying (locally and with heroku)                             |
+| Total | 54:00 |                                                                                    |
