@@ -27,8 +27,8 @@ const SearchForm = ({
   classState,
   setClassState
 }) => {
-  const [from, setFrom] = useState("berliininkatu")
-  const [to, setTo] = useState("hösmäri")
+  const [from, setFrom] = useState("")
+  const [to, setTo] = useState("")
   const [loading, setLoading] = useState(false)
   const [planTime, setPlanTime] = useState("")
   const [planDate, setPlanDate] = useState("")

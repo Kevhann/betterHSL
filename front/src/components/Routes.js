@@ -4,6 +4,7 @@ import { Accordion } from "semantic-ui-react"
 import { setActiveTrail } from "../reducers/trailReducer"
 import { connect } from "react-redux"
 import RoutePreview from "./RoutePreview"
+import { Timeline, Event } from "react-timeline-scribble"
 
 const Routes = ({ setActiveTrail, routes }) => {
   const [activeIndex, setActiveIndex] = useState(-1)
@@ -49,6 +50,14 @@ const Routes = ({ setActiveTrail, routes }) => {
           )
         })}
       </Accordion>
+      {/* <Timeline>
+        <Event interval={"2016 – 2018"} title={"Lorem"} subtitle={"Ipsum"}>
+          moi
+        </Event>
+        <Event interval={"2015 – 2016"} title={"Lorem"} subtitle={"Ipsum"}>
+          moi2
+        </Event>
+      </Timeline> */}
     </>
   )
 }

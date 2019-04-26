@@ -149,6 +149,8 @@ if (process.env.NODE_ENV === "production") {
   app.use("/", express.static("/build"))
 }
 const server = new ApolloServer({ typeDefs, resolvers })
+console.log("env port: ", process.env.PORT)
+
 server
   .listen(process.env.PORT || 4000)
   .then(({ url }) => console.log("server ready at", url))
