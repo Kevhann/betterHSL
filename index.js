@@ -6,6 +6,7 @@ const { createApolloFetch } = require("apollo-fetch")
 const cors = require("cors")
 const express = require("express")
 const graphqlHTTP = require("express-graphql")
+const bodyParser = require("body-parser")
 const app = express()
 
 const PORT = process.env.PORT || 3003
@@ -15,6 +16,7 @@ const HSL_ROUTE_API_URI =
 
 const fetch = new createApolloFetch({ uri: HSL_ROUTE_API_URI })
 
+app.use(bodyParser.json())
 app.use(cors())
 console.log("connecting to", HSL_ROUTE_API_URI)
 
