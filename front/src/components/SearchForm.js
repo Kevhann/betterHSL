@@ -39,6 +39,7 @@ const SearchForm = ({
     setPlanTime(formatTime(Date.now()))
     setPlanDate(getCurrentDate())
   }, [])
+
   const submit = async event => {
     event.preventDefault()
     setRoutes([])
