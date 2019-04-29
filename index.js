@@ -151,7 +151,6 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  playground: true,
   introspection: true
 })
 console.log("env port: ", process.env.PORT)
