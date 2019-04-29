@@ -12,19 +12,12 @@ const app = express()
 const PORT = process.env.PORT || 3003
 
 const HSL_ROUTE_API_URI =
-  "https://api.digitransit.fi/routing/v1/routers/next-hsl/index/graphql"
+  "//api.digitransit.fi/routing/v1/routers/next-hsl/index/graphql"
 
 const fetch = new createApolloFetch({ uri: HSL_ROUTE_API_URI })
 
 app.use(bodyParser.json())
 app.use(cors())
-if (process.env.NODE_ENV === "production") {
-  app.use((req, res, next) => {
-    if (req.header("x-forwarded-proto") !== "https")
-      res.redirect(`https://${req.header("host")}${req.url}`)
-    else next()
-  })
-}
 
 console.log("connecting to", HSL_ROUTE_API_URI)
 
