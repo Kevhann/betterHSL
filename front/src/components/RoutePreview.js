@@ -15,7 +15,7 @@ const RoutePreview = ({ route }) => {
     if (leg.mode !== "WALK") vehiclelegs++
   })
 
-  const maxwidth = 41 / vehiclelegs + "ch"
+  const maxwidth = 42 / vehiclelegs + "ch"
 
   return (
     <>
@@ -42,7 +42,7 @@ const RoutePreview = ({ route }) => {
         {route.legs.map(leg => {
           let color = "red"
           let icon = "train"
-          if (leg.mode === "WALK") {
+          if (leg.mode === "WALK" && route.legs.length !== 1) {
             return <></>
           } else if (leg.mode === "SUBWAY") {
             color = "orange"
@@ -50,6 +50,9 @@ const RoutePreview = ({ route }) => {
           } else if (leg.mode === "BUS") {
             color = "blue"
             icon = "bus"
+          } else if (leg.mode === "WALK") {
+            color = "lightblue"
+            icon = "blind"
           }
           return (
             <>
@@ -67,6 +70,13 @@ const RoutePreview = ({ route }) => {
         <span className="routePreviewContainer">
           {route.legs.map(leg => {
             if (leg.mode === "WALK") {
+              if (route.legs.length === 1) {
+                return (
+                  <span className="routePreview" style={{ maxWidth: maxwidth }}>
+                    {formatDistance(route.walkDistance)}
+                  </span>
+                )
+              }
               return <></>
             }
             return (

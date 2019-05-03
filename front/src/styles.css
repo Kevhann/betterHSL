@@ -31,7 +31,7 @@
   position: absolute;
   height: 95vh;
   left: 35rem;
-  right: 0;
+  right: 0px;
   z-index: 0;
 }
 
@@ -60,7 +60,7 @@
 
 .routePreviewContainer {
   position: relative;
-  left: 9%;
+  left: 8%;
   display: inline-flex;
   flex-direction: row;
   width: 95%;

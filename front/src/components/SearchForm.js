@@ -27,8 +27,8 @@ const SearchForm = ({
   classState,
   setClassState
 }) => {
-  const [from, setFrom] = useState("")
-  const [to, setTo] = useState("")
+  const [from, setFrom] = useState("suna")
+  const [to, setTo] = useState("santahamina")
   const [loading, setLoading] = useState(false)
   const [planTime, setPlanTime] = useState("")
   const [planDate, setPlanDate] = useState("")
@@ -50,7 +50,10 @@ const SearchForm = ({
       const coordinatesFrom = await geocoding(from)
       const coordinatesTo = await geocoding(to)
 
-      setBackgroundLocation([coordinatesFrom[1], coordinatesFrom[0]])
+      setBackgroundLocation([
+        [coordinatesFrom[1], coordinatesFrom[0]],
+        [coordinatesTo[1], coordinatesTo[0]]
+      ])
       setMapClass("resultsMap")
 
       const plannedRoute = await client.query({

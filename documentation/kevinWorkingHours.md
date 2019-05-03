@@ -21,4 +21,5 @@
 | 24.4  | 4:20  | Plan routes date and time parameters, fixed misaligned searchform elements, heroku |
 | 25.4  | 1:00  | Front refactoring, modified route preview css                                      |
 | 26.4  | 4:20  | Fierce battle with deploying (locally and with heroku)                             |
-| Total | 54:00 |                                                                                    |
+| 26.4  | 4:45  | First attempt at more detailed route view, fitting the route on the map            |
+| Total | 58:45 |                                                                                    |

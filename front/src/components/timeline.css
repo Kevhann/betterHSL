@@ -1,0 +1,49 @@
+.timeline {
+  position: relative;
+  max-width: 95%;
+  list-style: none;
+}
+.timelineIcon::after {
+  content: "";
+  border-left-width: 5px;
+  border-left-color: blue;
+  border-left-style: dotted;
+
+  position: absolute;
+  top: 0;
+  left: 2em;
+  height: 7rem;
+}
+
+.timelineEvent {
+  position: relative;
+}
+
+.timelineIcon {
+  background-color: blue;
+  display: block;
+  border-radius: 50%;
+  margin-top: 0.5em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1em;
+  height: 1em;
+}
+.timelineBody {
+  padding: 2em 2em 0 2em;
+  position: relative;
+  top: -1.875em;
+  left: 2em;
+  width: 95%;
+}
+.timelineTime {
+  color: white;
+  background-color: blue;
+  box-shadow: inset 0 0 0 0em #ef795a;
+  display: inline-block;
+  margin-bottom: 1.2em;
+  padding: 0.25em 1em 0.2em 1em;
+}
+.timelineDescription {
+}

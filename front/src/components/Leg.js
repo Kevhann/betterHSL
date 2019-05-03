@@ -1,9 +1,26 @@
-import React from 'react'
-import { formatDistance, formatTime } from '../functions/formatter'
+import React from "react"
+import { formatDistance, formatTime } from "../functions/formatter"
+import { Timeline, Event } from "./Timeline"
+import { Icon } from "semantic-ui-react"
+import "./timeline.css"
 
 const Leg = ({ leg }) => {
   const startTime = formatTime(leg.startTime)
   const distance = formatDistance(leg.distance)
+
+  if (true)
+    return (
+      <li className="timelineEvent">
+        <label className="timelineIcon" />
+        <div className="timelineBody">
+          <span className="timelineTime">{startTime}</span>
+          <span>{leg.from.name}</span>
+          <div />
+          <Icon name="add to cart" />
+          <span>{distance}</span>
+        </div>
+      </li>
+    )
 
   return (
     <div>

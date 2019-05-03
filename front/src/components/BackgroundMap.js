@@ -30,13 +30,15 @@ const BackgroundMap = ({
       console.log("routes:", routes)
 
       const placeholder = routes[activeTrail].legs.map(leg => {
-        let color = "red"
+        let color = "green"
         if (leg.mode === "WALK") {
-          color = "green"
+          color = "lightblue"
         } else if (leg.mode === "SUBWAY") {
           color = "orange"
         } else if (leg.mode === "BUS") {
           color = "blue"
+        } else if (leg.mode === "RAIL") {
+          color = "red"
         }
         const decodedTrail = polyUtil.decode(leg.legGeometry.points)
         return { color, decodedTrail, active: true }
@@ -52,8 +54,7 @@ const BackgroundMap = ({
       {console.log("className ennen mappia: ", mapClass)}
       <Map
         className={mapClass}
-        center={latlng}
-        zoom={12}
+        zoom={13}
         maxZoom={19}
         attributionControl={true}
         zoomControl={true}
@@ -62,6 +63,8 @@ const BackgroundMap = ({
         dragging={true}
         animate={true}
         easeLinearity={0.35}
+        bounds={latlng}
+        boundsOptions={{ padding: [10, 10] }}
         onclick={e => {
           console.log("lat, lng", [e.latlng.lat, e.latlng.lng])
         }}

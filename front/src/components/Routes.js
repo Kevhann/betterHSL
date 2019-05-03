@@ -4,7 +4,8 @@ import { Accordion } from "semantic-ui-react"
 import { setActiveTrail } from "../reducers/trailReducer"
 import { connect } from "react-redux"
 import RoutePreview from "./RoutePreview"
-import { Timeline, Event } from "react-timeline-scribble"
+import { Timeline, Event } from "./Timeline"
+import { formatDistance, formatTime } from "../functions/formatter"
 
 const Routes = ({ setActiveTrail, routes }) => {
   const [activeIndex, setActiveIndex] = useState(-1)
@@ -38,26 +39,19 @@ const Routes = ({ setActiveTrail, routes }) => {
                 </span>
               </Accordion.Title>
               <Accordion.Content active={activeIndex === itineraryid}>
-                <b>Route legs</b>
-                {route.legs.map(leg => (
-                  <div key={leg.distance}>
-                    <p />
-                    <Leg leg={leg} />
-                  </div>
-                ))}
+                <Timeline>
+                  {route.legs.map(leg => (
+                    <div key={leg.distance}>
+                      <p />
+                      <Leg leg={leg} />
+                    </div>
+                  ))}
+                </Timeline>
               </Accordion.Content>
             </>
           )
         })}
       </Accordion>
-      {/* <Timeline>
-        <Event interval={"2016 – 2018"} title={"Lorem"} subtitle={"Ipsum"}>
-          moi
-        </Event>
-        <Event interval={"2015 – 2016"} title={"Lorem"} subtitle={"Ipsum"}>
-          moi2
-        </Event>
-      </Timeline> */}
     </>
   )
 }
