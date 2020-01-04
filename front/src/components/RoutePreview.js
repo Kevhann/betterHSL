@@ -1,10 +1,6 @@
 import React from "react"
-import {
-  formatDistance,
-  formatTime,
-  formatDuration
-} from "../functions/formatter"
-import { Icon, Grid } from "semantic-ui-react"
+import { formatDistance, formatTime } from "../functions/formatter"
+import { Icon } from "semantic-ui-react"
 
 const RoutePreview = ({ route }) => {
   console.log("route:", route)

@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import _ from "lodash"
 import { Search, Icon } from "semantic-ui-react"
 import autocomplete from "../apis/autocomplete"
 import useDebouncedCallback from "use-debounce/lib/callback"

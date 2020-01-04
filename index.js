@@ -12,7 +12,7 @@ const app = express()
 const PORT = process.env.PORT || 3003
 
 const HSL_ROUTE_API_URI =
-  "//api.digitransit.fi/routing/v1/routers/next-hsl/index/graphql"
+  "//api.digitransit.fi/routing/v1/routers/hsl/index/graphql"
 
 const fetch = new createApolloFetch({ uri: HSL_ROUTE_API_URI })
 

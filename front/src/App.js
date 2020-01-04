@@ -3,6 +3,7 @@ import MainMenu from "./components/MainMenu"
 import SearchForm from "./components/SearchForm"
 import BackgroundMap from "./components/BackgroundMap"
 import "./styles.css"
+import "./timeline.css"
 
 const App = () => {
   return (

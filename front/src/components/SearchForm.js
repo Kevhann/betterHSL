@@ -95,7 +95,7 @@ const SearchForm = ({
 
           <Form.Field>
             <div className="toggleSearchTime">
-              <Button animated type="submit">
+              <Button animated primary type="submit" style={{ marginRight: 0 }}>
                 <Button.Content visible>Search</Button.Content>
                 <Button.Content hidden>
                   <Icon name="arrow right" />
