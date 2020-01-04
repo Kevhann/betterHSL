@@ -27,8 +27,8 @@ const SearchForm = ({
   classState,
   setClassState
 }) => {
-  const [from, setFrom] = useState("suna")
-  const [to, setTo] = useState("santahamina")
+  const [from, setFrom] = useState("")
+  const [to, setTo] = useState("")
   const [loading, setLoading] = useState(false)
   const [planTime, setPlanTime] = useState("")
   const [planDate, setPlanDate] = useState("")
@@ -160,7 +160,4 @@ const mapDispatchToProps = {
   setClassState: setFormClass
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SearchForm)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchForm)
