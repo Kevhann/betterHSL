@@ -2,15 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useApolloClient } from "react-apollo-hooks"
 import Routes from "./Routes"
 import AutocompleteSearchForm from "./AutocompleteSearchForm"
-import {
-  Segment,
-  Form,
-  Button,
-  Icon,
-  Loader,
-  Dropdown,
-  Input
-} from "semantic-ui-react"
+import { Segment, Form, Button, Icon, Loader, Input } from "semantic-ui-react"
 import { connect } from "react-redux"
 import { setRoutes } from "../reducers/routeReducer"
 import { setBackgroundLocation } from "../reducers/backgroundMapReducer"
@@ -20,27 +12,57 @@ import { formatTime, getCurrentDate } from "../functions/formatter"
 import planRoute from "../apis/planRoute"
 import geocoding from "../apis/geocoding"
 
+// why do these props turn into true?
+// Copypasting this below works
+const TimeSelectors = ({ planDate, setPlanDate, planTime, setPlanTime }) => {
+  console.log("planTime:", planTime)
+  console.log("setPlanTime:", setPlanTime)
+  return (
+    <React.Fragment>
+      <Form.Field>
+        <Input
+          defaultValue={planTime}
+          type="time"
+          onChange={(event) => setPlanTime(event.target.value)}
+        />
+      </Form.Field>
+      <Form.Field>
+        <Input
+          type="date"
+          style={{ maxWidth: "163px" }}
+          value={planDate}
+          onChange={(event) => setPlanDate(event.target.value)}
+        />
+      </Form.Field>
+    </React.Fragment>
+  )
+}
+
 const SearchForm = ({
   setRoutes,
   setBackgroundLocation,
   setMapClass,
   classState,
-  setClassState
+  setClassState,
 }) => {
   const [from, setFrom] = useState("")
   const [to, setTo] = useState("")
   const [loading, setLoading] = useState(false)
   const [planTime, setPlanTime] = useState("")
   const [planDate, setPlanDate] = useState("")
-  const [arriveBy, setArriveBy] = useState(false)
+  const [timeMethod, setTimeMethod] = useState("NOW")
+
+  const setCurrentTimeAndDate = () => {
+    setPlanTime(formatTime(Date.now()))
+    setPlanDate(getCurrentDate())
+  }
 
   const client = useApolloClient()
   useEffect(() => {
-    setPlanTime(formatTime(Date.now()))
-    setPlanDate(getCurrentDate())
+    setCurrentTimeAndDate()
   }, [])
 
-  const submit = async event => {
+  const submit = async (event) => {
     event.preventDefault()
     setRoutes([])
     if (from !== "" && to !== "") {
@@ -52,7 +74,7 @@ const SearchForm = ({
 
       setBackgroundLocation([
         [coordinatesFrom[1], coordinatesFrom[0]],
-        [coordinatesTo[1], coordinatesTo[0]]
+        [coordinatesTo[1], coordinatesTo[0]],
       ])
       setMapClass("resultsMap")
 
@@ -65,8 +87,8 @@ const SearchForm = ({
           lonTo: coordinatesTo[0],
           time: `${planTime}:00`,
           date: planDate,
-          arriveBy
-        }
+          arriveBy: timeMethod === "ARRIVE_BY",
+        },
       })
       const newRoutes = plannedRoute.data.planRoute
       setLoading(false)
@@ -93,50 +115,51 @@ const SearchForm = ({
             />
           </Form.Field>
 
+          <Form.Group inline>
+            <Form.Select
+              defaultValue={"NOW"}
+              selection
+              fluid
+              options={[
+                { key: 1, value: "NOW", text: "Now" },
+                { key: 1, value: "LEAVE_AT", text: "Leave at" },
+                { key: 2, value: "ARRIVE_BY", text: "Arrive by" },
+              ]}
+              onChange={(event, { value }) => {
+                setTimeMethod(value)
+                if (value === "NOW") {
+                  setCurrentTimeAndDate()
+                }
+              }}
+            />
+
+            {timeMethod !== "NOW" ? (
+              <React.Fragment>
+                <Form.Field>
+                  <Input
+                    defaultValue={planTime}
+                    type="time"
+                    onChange={(event) => setPlanTime(event.target.value)}
+                  />
+                </Form.Field>
+                <Form.Field>
+                  <Input
+                    type="date"
+                    style={{ maxWidth: "163px" }}
+                    value={planDate}
+                    onChange={(event) => setPlanDate(event.target.value)}
+                  />
+                </Form.Field>
+              </React.Fragment>
+            ) : null}
+          </Form.Group>
           <Form.Field>
-            <div className="toggleSearchTime">
-              <Button animated primary type="submit" style={{ marginRight: 0 }}>
-                <Button.Content visible>Search</Button.Content>
-                <Button.Content hidden>
-                  <Icon name="arrow right" />
-                </Button.Content>
-              </Button>
-              <span>
-                <Dropdown
-                  style={{
-                    minWidth: "11ch",
-                    paddingLeft: "10px",
-                    paddingRight: "10px"
-                  }}
-                  defaultValue={false}
-                  selection
-                  fluid
-                  options={[
-                    { key: 1, value: false, text: "leave at" },
-                    { key: 2, value: true, text: "arrive by" }
-                  ]}
-                  onChange={(event, { value }) => {
-                    setArriveBy(value)
-                  }}
-                />
-              </span>
-              <span>
-                <Input
-                  className="timeInput"
-                  defaultValue={planTime}
-                  type="time"
-                  onChange={event => setPlanTime(event.target.value)}
-                />
-              </span>
-              <span>
-                <Input
-                  type="date"
-                  style={{ maxWidth: "163px" }}
-                  value={planDate}
-                  onChange={event => setPlanDate(event.target.value)}
-                />
-              </span>
-            </div>
+            <Button animated primary type="submit">
+              <Button.Content visible>Search</Button.Content>
+              <Button.Content hidden>
+                <Icon name="arrow right" />
+              </Button.Content>
+            </Button>
           </Form.Field>
         </Form>
       </Segment>
@@ -149,15 +172,15 @@ const SearchForm = ({
     </div>
   )
 }
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   routes: state.routeReducer,
-  classState: state.formClassReducer
+  classState: state.formClassReducer,
 })
 const mapDispatchToProps = {
   setRoutes,
   setBackgroundLocation,
   setMapClass,
-  setClassState: setFormClass
+  setClassState: setFormClass,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchForm)

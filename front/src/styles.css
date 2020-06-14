@@ -84,17 +84,3 @@
   position: relative;
   padding-right: 5px;
 }
-
-.previewDuration {
-  position: relative;
-}
-
-.toggleSearchTime {
-  position: relative;
-  align-items: center;
-  display: inline-flex;
-}
-
-.timeInput {
-  max-width: 150px;
-}
