@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "better reittiopas",
   "main": "index.js",
+  "jest": {
+    "verbose": true
+  },
   "scripts": {
-    "test": "jest --passWithNoTests",
+    "test": "jest",
     "start": "nodemon index.js"
   },
   "repository": {
@@ -40,6 +43,8 @@
     "npm": "6.4.1"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.10.2",
+    "babel-jest": "^26.0.1",
     "jest": "^26.0.1"
   }
 }
