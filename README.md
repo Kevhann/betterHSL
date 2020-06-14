@@ -1,4 +1,6 @@
 # betterHSL
+![Node.js CI](https://github.com/Kevhann/betterHSL/workflows/Node.js%20CI/badge.svg)
+
 FullStack 2019 project lets go team
 
 ## Working hours
