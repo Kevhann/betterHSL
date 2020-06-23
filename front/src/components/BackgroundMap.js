@@ -11,25 +11,30 @@ const BackgroundMap = ({
   setLatlng,
   routes,
   activeTrail,
-  mapClass
+  mapClass,
 }) => {
   const [trails, setTrails] = useState([])
-  console.log("mapclass bgmapin alussa: ", mapClass)
+  const [center, setCenter] = useState([60.16646629936403, 24.94205474853516])
 
   useEffect(() => {
     let alltrails = []
-    //tähän vielä joku filteröivä ehto, active trail rendataan nyt kahdesti
     if (routes.length > 0) {
-      alltrails = routes.map(route =>
-        route.legs.map(leg => {
-          const decodedTrail = polyUtil.decode(leg.legGeometry.points)
-          return { color: "gray", decodedTrail }
-        })
-      )
+      alltrails = routes.reduce((total, current, index) => {
+        if (index !== activeTrail) {
+          return [
+            ...total,
+            current.legs.map((leg) => {
+              const decodedTrail = polyUtil.decode(leg.legGeometry.points)
+              return { color: "gray", decodedTrail }
+            }),
+          ]
+        }
+        return total
+      }, [])
       console.log("activeTrail:", activeTrail)
       console.log("routes:", routes)
 
-      const placeholder = routes[activeTrail].legs.map(leg => {
+      const placeholder = routes[activeTrail].legs.map((leg) => {
         let color = "green"
         if (leg.mode === "WALK") {
           color = "lightblue"
@@ -45,15 +50,14 @@ const BackgroundMap = ({
       })
       alltrails.push(placeholder)
     }
-    console.log("alltrails:", alltrails)
+    console.log("alltrains:", alltrails)
     setTrails(alltrails)
   }, [routes, activeTrail, mapClass])
   return (
     <>
-      {console.log("latlng juuri ennen mappia: ", latlng)}
-      {console.log("className ennen mappia: ", mapClass)}
       <Map
         className={mapClass}
+        center={center}
         zoom={13}
         maxZoom={19}
         attributionControl={true}
@@ -63,20 +67,18 @@ const BackgroundMap = ({
         dragging={true}
         animate={true}
         easeLinearity={0.35}
-        bounds={latlng}
+        // bounds={latlng}
         boundsOptions={{ padding: [10, 10] }}
-        onclick={e => {
+        onclick={(e) => {
           console.log("lat, lng", [e.latlng.lat, e.latlng.lng])
+          // setCenter([e.latlng.lat, e.latlng.lng])
         }}
       >
-        {console.log("routes bgmapissa: ", routes)}
-        {console.log("trails ennen rendausta: ", trails)}
-        {trails.map(trail =>
-          trail.map(leg => (
+        {trails.map((trail) =>
+          trail.map((leg) => (
             <Polyline color={leg.color} positions={leg.decodedTrail} />
           ))
         )}
-        {console.log("trails rendauksen jälkeen: ", trails)}
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -86,20 +88,17 @@ const BackgroundMap = ({
   )
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     latlng: state.backgroundMapReducer,
     routes: state.routeReducer,
     activeTrail: state.trailReducer,
-    mapClass: state.mapClassReducer
+    mapClass: state.mapClassReducer,
   }
 }
 
 const mapDispatchToProps = {
-  setLatlng: setBackgroundLocation
+  setLatlng: setBackgroundLocation,
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BackgroundMap)
+export default connect(mapStateToProps, mapDispatchToProps)(BackgroundMap)
