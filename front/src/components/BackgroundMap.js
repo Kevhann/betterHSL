@@ -18,7 +18,6 @@ const BackgroundMap = ({
 
   useEffect(() => {
     let alltrails = []
-    //tähän vielä joku filteröivä ehto, active trail rendataan nyt kahdesti
     if (routes.length > 0) {
       alltrails = routes.reduce((total, current, index) => {
         if (index !== activeTrail) {
