@@ -45,8 +45,12 @@ const SearchForm = ({
   classState,
   setClassState,
 }) => {
-  const [from, setFrom] = useState("")
-  const [to, setTo] = useState("")
+  const [from, setFrom] = useState(
+    process.env.NODE_ENV === "production" ? "" : "berliininkatu"
+  )
+  const [to, setTo] = useState(
+    process.env.NODE_ENV === "production" ? "" : "sello"
+  )
   const [loading, setLoading] = useState(false)
   const [planTime, setPlanTime] = useState("")
   const [planDate, setPlanDate] = useState("")

@@ -159,9 +159,7 @@ const server = new ApolloServer({
 console.log("env port: ", process.env.PORT)
 server.applyMiddleware({ app })
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("build"))
-}
+app.use(express.static("build"))
 
 const port = process.env.PORT || 4000
 app.listen(port)
