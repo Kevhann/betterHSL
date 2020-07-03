@@ -43,10 +43,14 @@ const SearchForm = ({
   setBackgroundLocation,
   setMapClass,
   classState,
-  setClassState,
+  setClassState
 }) => {
-  const [from, setFrom] = useState("")
-  const [to, setTo] = useState("")
+  const [from, setFrom] = useState(
+    process.env.NODE_ENV === "production" ? "" : "berliininkatu"
+  )
+  const [to, setTo] = useState(
+    process.env.NODE_ENV === "production" ? "" : "leppävaara"
+  )
   const [loading, setLoading] = useState(false)
   const [planTime, setPlanTime] = useState("")
   const [planDate, setPlanDate] = useState("")
@@ -74,7 +78,7 @@ const SearchForm = ({
 
       setBackgroundLocation([
         [coordinatesFrom[1], coordinatesFrom[0]],
-        [coordinatesTo[1], coordinatesTo[0]],
+        [coordinatesTo[1], coordinatesTo[0]]
       ])
       setMapClass("resultsMap")
 
@@ -87,8 +91,8 @@ const SearchForm = ({
           lonTo: coordinatesTo[0],
           time: `${planTime}:00`,
           date: planDate,
-          arriveBy: timeMethod === "ARRIVE_BY",
-        },
+          arriveBy: timeMethod === "ARRIVE_BY"
+        }
       })
       const newRoutes = plannedRoute.data.planRoute
       setLoading(false)
@@ -123,7 +127,7 @@ const SearchForm = ({
               options={[
                 { key: 1, value: "NOW", text: "Now" },
                 { key: 1, value: "LEAVE_AT", text: "Leave at" },
-                { key: 2, value: "ARRIVE_BY", text: "Arrive by" },
+                { key: 2, value: "ARRIVE_BY", text: "Arrive by" }
               ]}
               onChange={(event, { value }) => {
                 setTimeMethod(value)
@@ -174,13 +178,13 @@ const SearchForm = ({
 }
 const mapStateToProps = (state) => ({
   routes: state.routeReducer,
-  classState: state.formClassReducer,
+  classState: state.formClassReducer
 })
 const mapDispatchToProps = {
   setRoutes,
   setBackgroundLocation,
   setMapClass,
-  setClassState: setFormClass,
+  setClassState: setFormClass
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchForm)

@@ -8,7 +8,9 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "build:ui": "rm -r cd front && ../build && react-scripts build && cp -r build ../build && rm -r build",
+    "deploy:all": "npm run build:ui && git push heroku master"
   },
   "repository": {
     "type": "git",
