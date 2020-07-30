@@ -1,30 +1,30 @@
-import React, { useState } from "react"
-import Leg from "./Leg"
-import { Accordion } from "semantic-ui-react"
-import { setActiveTrail } from "../reducers/trailReducer"
-import { connect } from "react-redux"
-import RoutePreview from "./RoutePreview"
+import React, { useState } from "react";
+import Leg from "./Leg";
+import { Accordion } from "semantic-ui-react";
+import { setActiveTrail } from "../../reducers/trailReducer";
+import { connect } from "react-redux";
+import RoutePreview from "./RoutePreview";
 
 const Routes = ({ setActiveTrail, routes }) => {
-  const [activeIndex, setActiveIndex] = useState(-1)
-  let itineraryid = -1
+  const [activeIndex, setActiveIndex] = useState(-1);
+  let itineraryid = -1;
 
   const handleClick = (e, titleProps) => {
-    const { index } = titleProps
-    const isActive = activeIndex === index ? -1 : index
+    const { index } = titleProps;
+    const isActive = activeIndex === index ? -1 : index;
     if (isActive >= 0) {
-      setActiveTrail(isActive)
+      setActiveTrail(isActive);
     }
-    setActiveIndex(isActive)
-  }
+    setActiveIndex(isActive);
+  };
 
-  if (routes.length === 0) return <></>
+  if (routes.length === 0) return <></>;
 
   return (
     <>
       <Accordion fluid styled>
-        {routes.map(route => {
-          itineraryid++
+        {routes.map((route) => {
+          itineraryid++;
           return (
             <>
               <Accordion.Title
@@ -38,7 +38,7 @@ const Routes = ({ setActiveTrail, routes }) => {
               </Accordion.Title>
               <Accordion.Content active={activeIndex === itineraryid}>
                 <span className="timeline">
-                  {route.legs.map(leg => (
+                  {route.legs.map((leg) => (
                     <div key={leg.distance}>
                       <Leg leg={leg} />
                     </div>
@@ -46,24 +46,21 @@ const Routes = ({ setActiveTrail, routes }) => {
                 </span>
               </Accordion.Content>
             </>
-          )
+          );
         })}
       </Accordion>
     </>
-  )
-}
+  );
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    routes: state.routeReducer
-  }
-}
+    routes: state.routeReducer,
+  };
+};
 
 const mapDispatchToProps = {
-  setActiveTrail
-}
+  setActiveTrail,
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Routes)
+export default connect(mapStateToProps, mapDispatchToProps)(Routes);

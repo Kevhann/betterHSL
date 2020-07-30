@@ -1,10 +1,10 @@
-import React from "react"
-import { formatDistance, formatTime } from "../functions/formatter"
-import { Icon } from "semantic-ui-react"
+import React from "react";
+import { formatDistance, formatTime } from "../../functions/formatter";
+import { Icon } from "semantic-ui-react";
 
 const Leg = ({ leg }) => {
-  const startTime = formatTime(leg.startTime)
-  const distance = formatDistance(leg.distance)
+  const startTime = formatTime(leg.startTime);
+  const distance = formatDistance(leg.distance);
 
   if (true)
     return (
@@ -20,7 +20,7 @@ const Leg = ({ leg }) => {
         <span className="timelineInfo">{distance}</span>
         {/* </div> */}
       </li>
-    )
+    );
 
   return (
     <div>
@@ -38,6 +38,6 @@ const Leg = ({ leg }) => {
         <div>To: {leg.to.name}</div>
       </div>
     </div>
-  )
-}
-export default Leg
+  );
+};
+export default Leg;

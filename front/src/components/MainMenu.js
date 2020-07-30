@@ -1,37 +1,27 @@
-import React from "react"
-import { Menu, Header } from "semantic-ui-react"
-import { setMapClass } from "../reducers/mapClassReducer"
-import { setFormClass } from "../reducers/formClassReducer"
-import { setRoutes } from "../reducers/routeReducer"
-import { connect } from "react-redux"
+import React from "react";
+import { setMapClass } from "../reducers/mapClassReducer";
+import { setFormClass } from "../reducers/formClassReducer";
+import { setRoutes } from "../reducers/routeReducer";
+import { connect } from "react-redux";
 
 const MainMenu = ({ setMapClass, setFormClass, setRoutes }) => {
+  const handleClick = () => {
+    setFormClass("startForm");
+    setMapClass("startMap");
+    setRoutes([]);
+  };
+
   return (
-    <>
-      <Menu className="menu" inverted color="blue" borderless>
-        <Menu.Item
-          name="BetterHsl"
-          active={false}
-          onClick={() => {
-            setFormClass("startForm")
-            setMapClass("startMap")
-            setRoutes([])
-          }}
-        >
-          <Header>BetterHsl</Header>
-        </Menu.Item>
-      </Menu>
-    </>
-  )
-}
+    <div className="mainHeader">
+      <span className="mainHeader logo" onClick={handleClick} />
+    </div>
+  );
+};
 
 const mapDispatchToProps = {
   setMapClass,
   setFormClass,
-  setRoutes
-}
+  setRoutes,
+};
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(MainMenu)
+export default connect(null, mapDispatchToProps)(MainMenu);

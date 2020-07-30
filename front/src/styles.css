@@ -60,11 +60,16 @@
 
 .routePreviewContainer {
   position: relative;
-  left: 8%;
   display: inline-flex;
+  align-items: center;
   flex-direction: row;
-  width: 95%;
+  justify-content: space-between;
+  width: 100%;
   text-align: start;
+}
+
+body {
+  overflow: hidden;
 }
 
 .divided {
@@ -83,4 +88,22 @@
 .previewDeparture {
   position: relative;
   padding-right: 5px;
+}
+
+.mainHeader {
+  background-color: white;
+  background: url(./assets/banner.png) no-repeat right;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 3;
+  height: 8vh;
+}
+
+.mainHeader.logo {
+  background: url(https://upload.wikimedia.org/wikipedia/fi/c/cc/HSL_logo.svg)
+    no-repeat left;
+  background-size: contain;
+  transform: scale(0.93);
+  z-index: 2;
 }
