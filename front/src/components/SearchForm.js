@@ -1,86 +1,86 @@
-import React, { useState, useEffect } from "react"
-import { useApolloClient } from "react-apollo-hooks"
-import Routes from "./Routes"
-import AutocompleteSearchForm from "./AutocompleteSearchForm"
-import { Segment, Form, Button, Icon, Loader, Input } from "semantic-ui-react"
-import { connect } from "react-redux"
-import { setRoutes } from "../reducers/routeReducer"
-import { setBackgroundLocation } from "../reducers/backgroundMapReducer"
-import { setMapClass } from "../reducers/mapClassReducer"
-import { setFormClass } from "../reducers/formClassReducer"
-import { formatTime, getCurrentDate } from "../functions/formatter"
-import planRoute from "../apis/planRoute"
-import geocoding from "../apis/geocoding"
+import React, { useState, useEffect } from "react";
+import { useApolloClient } from "react-apollo-hooks";
+import Routes from "./routes/Routes";
+import AutocompleteSearchForm from "./AutocompleteSearchForm";
+import { Segment, Form, Button, Icon, Loader, Input } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { setRoutes } from "../reducers/routeReducer";
+import { setBackgroundLocation } from "../reducers/backgroundMapReducer";
+import { setMapClass } from "../reducers/mapClassReducer";
+import { setFormClass } from "../reducers/formClassReducer";
+import { formatTime, getCurrentDate } from "../functions/formatter";
+import planRoute from "../apis/planRoute";
+import geocoding from "../apis/geocoding";
 
 // why do these props turn into true?
 // Copypasting this below works
-const TimeSelectors = ({ planDate, setPlanDate, planTime, setPlanTime }) => {
-  console.log("planTime:", planTime)
-  console.log("setPlanTime:", setPlanTime)
-  return (
-    <React.Fragment>
-      <Form.Field>
-        <Input
-          defaultValue={planTime}
-          type="time"
-          onChange={(event) => setPlanTime(event.target.value)}
-        />
-      </Form.Field>
-      <Form.Field>
-        <Input
-          type="date"
-          style={{ maxWidth: "163px" }}
-          value={planDate}
-          onChange={(event) => setPlanDate(event.target.value)}
-        />
-      </Form.Field>
-    </React.Fragment>
-  )
-}
+// const TimeSelectors = ({ planDate, setPlanDate, planTime, setPlanTime }) => {
+//   console.log("planTime:", planTime);
+//   console.log("setPlanTime:", setPlanTime);
+//   return (
+//     <React.Fragment>
+//       <Form.Field>
+//         <Input
+//           defaultValue={planTime}
+//           type="time"
+//           onChange={(event) => setPlanTime(event.target.value)}
+//         />
+//       </Form.Field>
+//       <Form.Field>
+//         <Input
+//           type="date"
+//           style={{ maxWidth: "163px" }}
+//           value={planDate}
+//           onChange={(event) => setPlanDate(event.target.value)}
+//         />
+//       </Form.Field>
+//     </React.Fragment>
+//   );
+// };
 
 const SearchForm = ({
   setRoutes,
   setBackgroundLocation,
   setMapClass,
   classState,
-  setClassState
+  setClassState,
 }) => {
   const [from, setFrom] = useState(
     process.env.NODE_ENV === "production" ? "" : "berliininkatu"
-  )
+  );
   const [to, setTo] = useState(
     process.env.NODE_ENV === "production" ? "" : "leppävaara"
-  )
-  const [loading, setLoading] = useState(false)
-  const [planTime, setPlanTime] = useState("")
-  const [planDate, setPlanDate] = useState("")
-  const [timeMethod, setTimeMethod] = useState("NOW")
+  );
+  const [loading, setLoading] = useState(false);
+  const [planTime, setPlanTime] = useState("");
+  const [planDate, setPlanDate] = useState("");
+  const [timeMethod, setTimeMethod] = useState("NOW");
 
   const setCurrentTimeAndDate = () => {
-    setPlanTime(formatTime(Date.now()))
-    setPlanDate(getCurrentDate())
-  }
+    setPlanTime(formatTime(Date.now()));
+    setPlanDate(getCurrentDate());
+  };
 
-  const client = useApolloClient()
+  const client = useApolloClient();
   useEffect(() => {
-    setCurrentTimeAndDate()
-  }, [])
+    setCurrentTimeAndDate();
+  }, []);
 
   const submit = async (event) => {
-    event.preventDefault()
-    setRoutes([])
+    event.preventDefault();
+    setRoutes([]);
     if (from !== "" && to !== "") {
-      setLoading(true)
-      setClassState("resultsForm")
+      setLoading(true);
+      setClassState("resultsForm");
 
-      const coordinatesFrom = await geocoding(from)
-      const coordinatesTo = await geocoding(to)
+      const coordinatesFrom = await geocoding(from);
+      const coordinatesTo = await geocoding(to);
 
       setBackgroundLocation([
         [coordinatesFrom[1], coordinatesFrom[0]],
-        [coordinatesTo[1], coordinatesTo[0]]
-      ])
-      setMapClass("resultsMap")
+        [coordinatesTo[1], coordinatesTo[0]],
+      ]);
+      setMapClass("resultsMap");
 
       const plannedRoute = await client.query({
         query: planRoute,
@@ -91,14 +91,14 @@ const SearchForm = ({
           lonTo: coordinatesTo[0],
           time: `${planTime}:00`,
           date: planDate,
-          arriveBy: timeMethod === "ARRIVE_BY"
-        }
-      })
-      const newRoutes = plannedRoute.data.planRoute
-      setLoading(false)
-      setRoutes(newRoutes)
+          arriveBy: timeMethod === "ARRIVE_BY",
+        },
+      });
+      const newRoutes = plannedRoute.data.planRoute;
+      setLoading(false);
+      setRoutes(newRoutes);
     }
-  }
+  };
 
   return (
     <div className={classState}>
@@ -126,13 +126,13 @@ const SearchForm = ({
               fluid
               options={[
                 { key: 1, value: "NOW", text: "Now" },
-                { key: 1, value: "LEAVE_AT", text: "Leave at" },
-                { key: 2, value: "ARRIVE_BY", text: "Arrive by" }
+                { key: 2, value: "LEAVE_AT", text: "Leave at" },
+                { key: 3, value: "ARRIVE_BY", text: "Arrive by" },
               ]}
               onChange={(event, { value }) => {
-                setTimeMethod(value)
+                setTimeMethod(value);
                 if (value === "NOW") {
-                  setCurrentTimeAndDate()
+                  setCurrentTimeAndDate();
                 }
               }}
             />
@@ -174,17 +174,17 @@ const SearchForm = ({
         style={{ marginTop: "10px" }}
       />
     </div>
-  )
-}
+  );
+};
 const mapStateToProps = (state) => ({
   routes: state.routeReducer,
-  classState: state.formClassReducer
-})
+  classState: state.formClassReducer,
+});
 const mapDispatchToProps = {
   setRoutes,
   setBackgroundLocation,
   setMapClass,
-  setClassState: setFormClass
-}
+  setClassState: setFormClass,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchForm)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchForm);
