@@ -11,7 +11,7 @@ const BackgroundMap = ({
   setLatlng,
   routes,
   activeTrail,
-  mapClass,
+  mapClass
 }) => {
   const [trails, setTrails] = useState([])
   const [center, setCenter] = useState([60.16646629936403, 24.94205474853516])
@@ -26,7 +26,7 @@ const BackgroundMap = ({
             current.legs.map((leg) => {
               const decodedTrail = polyUtil.decode(leg.legGeometry.points)
               return { color: "gray", decodedTrail }
-            }),
+            })
           ]
         }
         return total
@@ -93,12 +93,12 @@ const mapStateToProps = (state) => {
     latlng: state.backgroundMapReducer,
     routes: state.routeReducer,
     activeTrail: state.trailReducer,
-    mapClass: state.mapClassReducer,
+    mapClass: state.mapClassReducer
   }
 }
 
 const mapDispatchToProps = {
-  setLatlng: setBackgroundLocation,
+  setLatlng: setBackgroundLocation
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BackgroundMap)
