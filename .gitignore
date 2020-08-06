@@ -4,9 +4,6 @@
 .pnp.js
 .vscode
 
-# build
-/build
-
 # testing
 /coverage
 
