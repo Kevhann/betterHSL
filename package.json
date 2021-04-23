@@ -40,10 +40,6 @@
     "react-timeline-scribble": "^1.0.14",
     "uuid": "^3.3.3"
   },
-  "engines": {
-    "node": "10.15.3",
-    "npm": "6.4.1"
-  },
   "devDependencies": {
     "@babel/preset-env": "^7.10.2",
     "babel-jest": "^26.0.1",
