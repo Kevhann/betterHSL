@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Search, Icon } from 'semantic-ui-react';
+import { Search, Icon, SearchResultData, SearchResultProps } from 'semantic-ui-react';
 import autocomplete from '../apis/autocomplete';
 import { useDebouncedCallback } from 'use-debounce';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
+import { AutocompleteResults, LayerName } from '../types/route';
 
 type Props = {
   fieldName: string;
@@ -12,7 +13,7 @@ type Props = {
 
 export const AutocompleteSearchForm = ({ fieldName, inputValue, setInputValue }: Props) => {
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<AutocompleteResults[]>([]);
   const bounce = useDebouncedCallback(
     async value => {
       if (value.length < 1) return resetComponent();
@@ -34,10 +35,17 @@ export const AutocompleteSearchForm = ({ fieldName, inputValue, setInputValue }:
     setInputValue('');
   };
 
-  const handleResultSelect = (e, { result }) => setInputValue(result.title);
+  const handleResultSelect = (
+    _e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    data: SearchResultData
+  ) => setInputValue(data.result.title);
 
-  const resultRenderer = ({ title, layer }) => {
+  const resultRenderer = (props: SearchResultProps) => {
     /* Return an appropriate icon based on the layer of the autofill result */
+
+    // TODO: fix types
+    const layer: LayerName = props.layer;
+    const title = props.title;
     let iconName: SemanticICONS;
     if (layer === 'venue') {
       iconName = 'building';

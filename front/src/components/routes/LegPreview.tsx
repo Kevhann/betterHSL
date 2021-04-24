@@ -1,10 +1,13 @@
-import React from 'react';
+import * as React from 'react';
 import { formatTime } from '../../functions/formatter';
 import { Icon, SemanticICONS } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { Leg } from '../../types/route';
 
-export const LegPreview = ({ leg }: { leg: Leg }) => {
+type Props = { leg: Leg };
+
+export const LegPreview = (props: Props) => {
+  const { leg } = props;
   let color = 'purple';
   let icon: SemanticICONS = 'train';
   const legDepartureTime = formatTime(leg.startTime);
@@ -21,8 +24,6 @@ export const LegPreview = ({ leg }: { leg: Leg }) => {
     color = 'lightblue';
     icon = 'blind';
   }
-
-  console.log('leg:', leg);
 
   const LegSegmentPreview = styled.span`
     flex-grow: 1;

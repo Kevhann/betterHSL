@@ -1,18 +1,19 @@
-import React from 'react';
+import * as React from 'react';
 import { formatTime } from '../../functions/formatter';
-import LegPrewiev from './LegPreview';
+import { Route } from '../../types/route';
+import { LegPreview } from './LegPreview';
 
-const RoutePreview = ({ route }) => {
+const RoutePreview = ({ route }: { route: Route }) => {
   const arrival = formatTime(route.legs[route.legs.length - 1].endTime);
   const departure = formatTime(route.legs[0].startTime);
   const legAmount = route.legs.length;
 
-  let vehiclelegs = 0;
-  route.legs.forEach(leg => {
-    if (leg.mode !== 'WALK') vehiclelegs++;
-  });
+  // let vehiclelegs = 0;
+  // route.legs.forEach(leg => {
+  //   if (leg.mode !== 'WALK') vehiclelegs++;
+  // });
 
-  const maxwidth = 42 / vehiclelegs + 'ch';
+  // const maxwidth = 42 / vehiclelegs + 'ch';
 
   return (
     <span className="routePreviewContainer">
@@ -22,15 +23,7 @@ const RoutePreview = ({ route }) => {
           return null;
         }
         return (
-          <span>
-            {leg.mode === 'WALK' && legAmount !== 1 ? null : (
-              <LegPrewiev
-                classnameProp={`${leg.from.stop.code}${leg.startTime}`}
-                leg={leg}
-                maxwidth={maxwidth}
-              />
-            )}
-          </span>
+          <span>{leg.mode === 'WALK' && legAmount !== 1 ? null : <LegPreview leg={leg} />}</span>
         );
       })}
       <span>{arrival}</span>

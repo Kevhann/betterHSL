@@ -56,3 +56,7 @@ export type TrailLeg = { color: Color; decodedTrail: LatLong[]; active: boolean 
 export type Trail = TrailLeg[];
 
 export type TimeOption = 'NOW' | 'LEAVE_AT' | 'ARRIVE_BY';
+
+export type LayerName = 'venue' | 'stop' | 'address' | 'street';
+
+export type AutocompleteResults = { layer: LayerName; title: string };

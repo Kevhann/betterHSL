@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
-import Leg from './Leg';
-import { Accordion } from 'semantic-ui-react';
+import * as React from 'react';
+import { Leg } from './Leg';
+import { Accordion, AccordionTitleProps } from 'semantic-ui-react';
 import { setActiveTrail } from '../../reducers/trailReducer';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import RoutePreview from './RoutePreview';
+import { RootState } from '../../store';
 
-const Routes = ({ setActiveTrail, routes }) => {
-  const [activeIndex, setActiveIndex] = useState(-1);
+type Props = ConnectedProps<typeof connector>;
+
+const Routes = ({ setActiveTrail, routes }: Props) => {
+  const [activeIndex, setActiveIndex] = React.useState(-1);
   let itineraryid = -1;
 
-  const handleClick = (e, titleProps) => {
-    const { index } = titleProps;
+  const handleClick = (
+    _e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    titleProps: AccordionTitleProps
+  ) => {
+    const index = typeof titleProps.index === 'number' ? titleProps.index : -1;
     const isActive = activeIndex === index ? -1 : index;
     if (isActive >= 0) {
       setActiveTrail(isActive);
@@ -32,7 +38,7 @@ const Routes = ({ setActiveTrail, routes }) => {
                 index={itineraryid}
                 active={activeIndex === itineraryid}
               >
-                <span key={route.distance}>
+                <span key={route.walkDistance}>
                   <RoutePreview route={route} />
                 </span>
               </Accordion.Title>
@@ -53,7 +59,7 @@ const Routes = ({ setActiveTrail, routes }) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: RootState) => {
   return {
     routes: state.route
   };
@@ -62,5 +68,5 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   setActiveTrail
 };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Routes);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+export default connector(Routes);

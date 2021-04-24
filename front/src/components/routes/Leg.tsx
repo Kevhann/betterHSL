@@ -1,9 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import { formatDistance, formatTime } from '../../functions/formatter';
 import { Icon } from 'semantic-ui-react';
 import { Leg as LegType } from '../../types/route';
 
-export const Leg = ({ leg }: { leg: LegType }) => {
+type Props = { leg: LegType };
+
+export const Leg = (props: Props) => {
+  const { leg } = props;
   const startTime = formatTime(leg.startTime);
   const distance = formatDistance(leg.distance);
 
