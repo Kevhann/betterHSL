@@ -1,11 +1,12 @@
 import React from 'react';
 import { formatTime } from '../../functions/formatter';
-import { Icon } from 'semantic-ui-react';
+import { Icon, SemanticICONS } from 'semantic-ui-react';
 import styled from 'styled-components';
+import { Leg } from '../../types/route';
 
-const LegPrewiev = ({ leg }) => {
+export const LegPreview = ({ leg }: { leg: Leg }) => {
   let color = 'purple';
-  let icon = 'train';
+  let icon: SemanticICONS = 'train';
   const legDepartureTime = formatTime(leg.startTime);
 
   if (leg.mode === 'SUBWAY') {
@@ -84,11 +85,11 @@ const LegPrewiev = ({ leg }) => {
     <LegPreviewContainer>
       <LegInfoContainer>
         {leg.mode === 'WALK' ? null : (
-          <LegSegmentPreview key={leg.from.name}>{leg.from.stop.name}</LegSegmentPreview>
+          <LegSegmentPreview key={leg.from.name}>{leg.from.stop?.name}</LegSegmentPreview>
         )}
         <div>
           <Icon name={icon} />
-          {leg.trip.route.shortName}
+          {leg.trip?.route.shortName}
         </div>
         {legDepartureTime}
       </LegInfoContainer>
@@ -99,5 +100,3 @@ const LegPrewiev = ({ leg }) => {
     </LegPreviewContainer>
   );
 };
-
-export default LegPrewiev;
