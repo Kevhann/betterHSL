@@ -1,8 +1,9 @@
 import React from 'react';
 import { formatDistance, formatTime } from '../../functions/formatter';
 import { Icon } from 'semantic-ui-react';
+import { Leg as LegType } from '../../types/route';
 
-const Leg = ({ leg }) => {
+export const Leg = ({ leg }: { leg: LegType }) => {
   const startTime = formatTime(leg.startTime);
   const distance = formatDistance(leg.distance);
 
@@ -30,7 +31,7 @@ const Leg = ({ leg }) => {
         <div>Mode: {leg.mode}</div>
         {leg.trip && (
           <div>
-            {leg.trip.route.shortName} {leg.trip.tripHeadsign}
+            {leg.trip?.route.shortName} {leg.trip?.tripHeadsign}
           </div>
         )}
         <div>Distance: {distance}</div>
