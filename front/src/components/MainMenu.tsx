@@ -1,4 +1,3 @@
-import React from 'react';
 import { setMapClass } from '../reducers/mapClassReducer';
 import { setFormClass } from '../reducers/formClassReducer';
 import { setRoutes } from '../reducers/routeReducer';

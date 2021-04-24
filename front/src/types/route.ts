@@ -4,7 +4,7 @@ export type Route = {
   legs: Leg[];
 };
 
-export type Mode = 'WALK' | 'BUS' | 'RAIL' | 'METRO';
+export type Mode = 'WALK' | 'BUS' | 'RAIL' | 'SUBWAY';
 
 export type PointName = string | 'Origin';
 
@@ -48,3 +48,9 @@ export type Stop = {
   code: string;
   name: string;
 } | null;
+
+export type LatLong = [number, number];
+
+export type Color = 'gray' | 'green' | 'red' | 'lightblue' | 'blue' | 'orange';
+export type TrailLeg = { color: Color; decodedTrail: LatLong[]; active: boolean };
+export type Trail = TrailLeg[];
