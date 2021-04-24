@@ -1,5 +1,5 @@
-import React from "react"
-import ReactDOM from "react-dom"
+import * as React from "react"
+import * as ReactDOM from "react-dom"
 import App from "./App"
 import { ApolloProvider } from "react-apollo"
 import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks"
@@ -15,7 +15,7 @@ import { split } from "apollo-link"
 import { WebSocketLink } from "apollo-link-ws"
 import { getMainDefinition } from "apollo-utilities"
 
-import config from "./config"
+import * as config from "./config"
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
   uri: config.WSPORT,
@@ -40,8 +40,9 @@ const authLink = setContext((_, { headers }) => {
 
 const link = split(
   ({ query }) => {
-    const { kind, operation } = getMainDefinition(query)
-    return kind === "OperationDefinition" && operation === "subscription"
+    const { kind } = getMainDefinition(query)
+    return kind === "OperationDefinition";
+    // && operation === "subscription"
   },
   wsLink,
   authLink.concat(httpLink)
