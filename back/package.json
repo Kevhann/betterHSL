@@ -1,0 +1,48 @@
+{
+  "name": "betterhsl",
+  "version": "1.0.0",
+  "description": "better reittiopas",
+  "main": "index.js",
+  "jest": {
+    "verbose": true
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "nodemon index.js",
+    "build:ui": "cd front && npm run build",
+    "deploy:all": "npm run build:ui && git add . && git commit -m'deployed new frontend build' && git push heroku master"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kevhann/betterHSL.git"
+  },
+  "author": "Kevin & Erkka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kevhann/betterHSL/issues"
+  },
+  "homepage": "https://github.com/Kevhann/betterHSL#readme",
+  "dependencies": {
+    "apollo-fetch": "^0.7.0",
+    "apollo-link": "^1.2.13",
+    "apollo-link-context": "^1.0.19",
+    "apollo-server": "^2.9.15",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-graphql": "^0.8.0",
+    "graphql": "^14.5.8",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.8.4",
+    "mongoose-unique-validator": "^2.0.3",
+    "nodemon": "^1.19.4",
+    "polyline-encoded": "0.0.8",
+    "react-time-line": "^0.2.0",
+    "react-timeline-scribble": "^1.0.14",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.10.2",
+    "babel-jest": "^26.0.1",
+    "jest": "^26.0.1"
+  }
+}
