@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useApolloClient } from "react-apollo-hooks";
-import Routes from "./routes/Routes";
-import AutocompleteSearchForm from "./AutocompleteSearchForm";
-import { Segment, Form, Button, Icon, Loader, Input } from "semantic-ui-react";
-import { connect } from "react-redux";
-import { setRoutes } from "../reducers/routeReducer";
-import { setBackgroundLocation } from "../reducers/backgroundMapReducer";
-import { setMapClass } from "../reducers/mapClassReducer";
-import { setFormClass } from "../reducers/formClassReducer";
-import { formatTime, getCurrentDate } from "../functions/formatter";
-import planRoute from "../apis/planRoute";
-import geocoding from "../apis/geocoding";
+import React, { useState, useEffect } from 'react';
+import { useApolloClient } from 'react-apollo-hooks';
+import Routes from './routes/Routes';
+import { AutocompleteSearchForm } from './AutocompleteSearchForm';
+import { Segment, Form, Button, Icon, Loader, Input } from 'semantic-ui-react';
+import { connect, ConnectedProps } from 'react-redux';
+import { setRoutes } from '../reducers/routeReducer';
+import { setBackgroundLocation } from '../reducers/backgroundMapReducer';
+import { setMapClass } from '../reducers/mapClassReducer';
+import { setFormClass } from '../reducers/formClassReducer';
+import { formatTime, getCurrentDate } from '../functions/formatter';
+import planRoute from '../apis/planRoute';
+import geocoding from '../apis/geocoding';
+import { RootState } from '../store';
+import { TimeOption } from '../types/route';
 
 // why do these props turn into true?
 // Copypasting this below works
@@ -38,23 +40,31 @@ import geocoding from "../apis/geocoding";
 //   );
 // };
 
+type Props = ConnectedProps<typeof connector>;
+type TimeSelectOption = {
+  key: number;
+  value: TimeOption;
+  text: string;
+};
+const timeSelectOptions: TimeSelectOption[] = [
+  { key: 1, value: 'NOW', text: 'Now' },
+  { key: 2, value: 'LEAVE_AT', text: 'Leave at' },
+  { key: 3, value: 'ARRIVE_BY', text: 'Arrive by' }
+];
+
 const SearchForm = ({
   setRoutes,
   setBackgroundLocation,
   setMapClass,
   classState,
-  setClassState,
-}) => {
-  const [from, setFrom] = useState(
-    process.env.NODE_ENV === "production" ? "" : "berliininkatu"
-  );
-  const [to, setTo] = useState(
-    process.env.NODE_ENV === "production" ? "" : "leppävaara"
-  );
+  setFormClass
+}: Props) => {
+  const [from, setFrom] = useState(process.env.NODE_ENV === 'production' ? '' : 'berliininkatu');
+  const [to, setTo] = useState(process.env.NODE_ENV === 'production' ? '' : 'leppävaara');
   const [loading, setLoading] = useState(false);
-  const [planTime, setPlanTime] = useState("");
-  const [planDate, setPlanDate] = useState("");
-  const [timeMethod, setTimeMethod] = useState("NOW");
+  const [planTime, setPlanTime] = useState('');
+  const [planDate, setPlanDate] = useState('');
+  const [timeMethod, setTimeMethod] = useState<any>('NOW');
 
   const setCurrentTimeAndDate = () => {
     setPlanTime(formatTime(Date.now()));
@@ -66,21 +76,21 @@ const SearchForm = ({
     setCurrentTimeAndDate();
   }, []);
 
-  const submit = async (event) => {
+  const submit = async (event: any) => {
     event.preventDefault();
     setRoutes([]);
-    if (from !== "" && to !== "") {
+    if (from !== '' && to !== '') {
       setLoading(true);
-      setClassState("resultsForm");
+      setFormClass('resultsForm');
 
       const coordinatesFrom = await geocoding(from);
       const coordinatesTo = await geocoding(to);
 
       setBackgroundLocation([
         [coordinatesFrom[1], coordinatesFrom[0]],
-        [coordinatesTo[1], coordinatesTo[0]],
+        [coordinatesTo[1], coordinatesTo[0]]
       ]);
-      setMapClass("resultsMap");
+      setMapClass('resultsMap');
 
       const plannedRoute = await client.query({
         query: planRoute,
@@ -91,8 +101,8 @@ const SearchForm = ({
           lonTo: coordinatesTo[0],
           time: `${planTime}:00`,
           date: planDate,
-          arriveBy: timeMethod === "ARRIVE_BY",
-        },
+          arriveBy: timeMethod === 'ARRIVE_BY'
+        }
       });
       const newRoutes = plannedRoute.data.planRoute;
       setLoading(false);
@@ -105,53 +115,43 @@ const SearchForm = ({
       <Segment raised style={{ marginBottom: 0 }}>
         <Form onSubmit={submit}>
           <Form.Field>
-            <AutocompleteSearchForm
-              inputValue={from}
-              setInputValue={setFrom}
-              fieldName="from"
-            />
+            <AutocompleteSearchForm inputValue={from} setInputValue={setFrom} fieldName="from" />
           </Form.Field>
           <Form.Field>
-            <AutocompleteSearchForm
-              inputValue={to}
-              setInputValue={setTo}
-              fieldName="to"
-            />
+            <AutocompleteSearchForm inputValue={to} setInputValue={setTo} fieldName="to" />
           </Form.Field>
 
           <Form.Group inline>
             <Form.Select
-              defaultValue={"NOW"}
+              defaultValue={'NOW'}
               selection
               fluid
-              options={[
-                { key: 1, value: "NOW", text: "Now" },
-                { key: 2, value: "LEAVE_AT", text: "Leave at" },
-                { key: 3, value: "ARRIVE_BY", text: "Arrive by" },
-              ]}
+              options={timeSelectOptions}
+              clearable={false}
               onChange={(event, { value }) => {
                 setTimeMethod(value);
-                if (value === "NOW") {
+                console.log('value:', value);
+                if (value === 'NOW') {
                   setCurrentTimeAndDate();
                 }
               }}
             />
 
-            {timeMethod !== "NOW" ? (
+            {timeMethod !== 'NOW' ? (
               <React.Fragment>
                 <Form.Field>
                   <Input
                     defaultValue={planTime}
                     type="time"
-                    onChange={(event) => setPlanTime(event.target.value)}
+                    onChange={event => setPlanTime(event.target.value)}
                   />
                 </Form.Field>
                 <Form.Field>
                   <Input
                     type="date"
-                    style={{ maxWidth: "163px" }}
+                    style={{ maxWidth: '163px' }}
                     value={planDate}
-                    onChange={(event) => setPlanDate(event.target.value)}
+                    onChange={event => setPlanDate(event.target.value)}
                   />
                 </Form.Field>
               </React.Fragment>
@@ -168,23 +168,27 @@ const SearchForm = ({
         </Form>
       </Segment>
       <Routes />
-      <Loader
-        inline="centered"
-        active={loading}
-        style={{ marginTop: "10px" }}
-      />
+      <Loader inline="centered" active={loading} style={{ marginTop: '10px' }} />
     </div>
   );
 };
-const mapStateToProps = (state) => ({
-  routes: state.routeReducer,
-  classState: state.formClassReducer,
-});
+
+const mapStateToProps = (state: RootState) => {
+  return {
+    latlng: state.backgroundMap,
+    classState: state.formClass,
+    routes: state.route,
+    activeTrail: state.trail,
+    mapClass: state.mapClass
+  };
+};
 const mapDispatchToProps = {
   setRoutes,
   setBackgroundLocation,
   setMapClass,
-  setClassState: setFormClass,
+  setFormClass
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchForm);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(SearchForm);

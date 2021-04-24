@@ -7,7 +7,5 @@ export const setMapClass = createAction<MapClassState>('SET_MAP_CLASS');
 const initialState = 'startMap';
 
 export const mapClassReducer = createReducer<MapClassState>(initialState, builder => {
-  builder.addCase(setMapClass, (state, action) => {
-    state = action.payload;
-  });
+  builder.addCase(setMapClass, (state, action) => action.payload);
 });

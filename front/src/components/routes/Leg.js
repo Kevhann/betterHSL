@@ -1,6 +1,6 @@
-import React from "react";
-import { formatDistance, formatTime } from "../../functions/formatter";
-import { Icon } from "semantic-ui-react";
+import React from 'react';
+import { formatDistance, formatTime } from '../../functions/formatter';
+import { Icon } from 'semantic-ui-react';
 
 const Leg = ({ leg }) => {
   const startTime = formatTime(leg.startTime);

@@ -12,7 +12,5 @@ const initialState: BackgroundMapState = [
 ];
 
 export const backgroundMapReducer = createReducer(initialState, builder => {
-  builder.addCase(setBackgroundLocation, (state, action) => {
-    state = action.payload;
-  });
+  builder.addCase(setBackgroundLocation, (state, action) => action.payload);
 });

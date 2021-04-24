@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import Leg from "./Leg";
-import { Accordion } from "semantic-ui-react";
-import { setActiveTrail } from "../../reducers/trailReducer";
-import { connect } from "react-redux";
-import RoutePreview from "./RoutePreview";
+import React, { useState } from 'react';
+import Leg from './Leg';
+import { Accordion } from 'semantic-ui-react';
+import { setActiveTrail } from '../../reducers/trailReducer';
+import { connect } from 'react-redux';
+import RoutePreview from './RoutePreview';
 
 const Routes = ({ setActiveTrail, routes }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -23,7 +23,7 @@ const Routes = ({ setActiveTrail, routes }) => {
   return (
     <>
       <Accordion fluid styled>
-        {routes.map((route) => {
+        {routes.map(route => {
           itineraryid++;
           return (
             <>
@@ -38,7 +38,7 @@ const Routes = ({ setActiveTrail, routes }) => {
               </Accordion.Title>
               <Accordion.Content active={activeIndex === itineraryid}>
                 <span className="timeline">
-                  {route.legs.map((leg) => (
+                  {route.legs.map(leg => (
                     <div key={leg.distance}>
                       <Leg leg={leg} />
                     </div>
@@ -53,14 +53,14 @@ const Routes = ({ setActiveTrail, routes }) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    routes: state.routeReducer,
+    routes: state.route
   };
 };
 
 const mapDispatchToProps = {
-  setActiveTrail,
+  setActiveTrail
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Routes);

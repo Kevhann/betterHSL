@@ -16,11 +16,13 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
 import * as config from './config';
+
+console.log('config:', config);
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
   uri: config.WSPORT,
   options: {
-    reconnect: true
+    reconnect: false
   }
 });
 
@@ -39,10 +41,9 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const link = split(
-  ({ query }) => {
+  ({ query, operationName }) => {
     const { kind } = getMainDefinition(query);
-    return kind === 'OperationDefinition';
-    // && operation === "subscription"
+    return kind === 'OperationDefinition' && operationName === 'subscription';
   },
   wsLink,
   authLink.concat(httpLink)

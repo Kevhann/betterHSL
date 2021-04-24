@@ -54,3 +54,5 @@ export type LatLong = [number, number];
 export type Color = 'gray' | 'green' | 'red' | 'lightblue' | 'blue' | 'orange';
 export type TrailLeg = { color: Color; decodedTrail: LatLong[]; active: boolean };
 export type Trail = TrailLeg[];
+
+export type TimeOption = 'NOW' | 'LEAVE_AT' | 'ARRIVE_BY';
