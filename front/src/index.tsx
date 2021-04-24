@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './App';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 import { Provider } from 'react-redux';
 import store from './store';
+import { App } from './app';
 
 import { ApolloClient } from 'apollo-boost';
 import { createHttpLink } from 'apollo-link-http';
