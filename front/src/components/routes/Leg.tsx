@@ -44,4 +44,3 @@ export const Leg = (props: Props) => {
     </div>
   );
 };
-export default Leg;

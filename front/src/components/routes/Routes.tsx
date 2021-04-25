@@ -3,7 +3,7 @@ import { Leg } from './Leg';
 import { Accordion, AccordionTitleProps } from 'semantic-ui-react';
 import { setActiveTrail } from '../../reducers/trailReducer';
 import { connect, ConnectedProps } from 'react-redux';
-import RoutePreview from './RoutePreview';
+import { RoutePreview } from './RoutePreview';
 import { RootState } from '../../store';
 
 type Props = ConnectedProps<typeof connector>;

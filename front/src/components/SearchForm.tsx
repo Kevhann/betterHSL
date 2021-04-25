@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
 import { useApolloClient } from 'react-apollo-hooks';
 import Routes from './routes/Routes';
 import { AutocompleteSearchForm } from './AutocompleteSearchForm';
@@ -59,12 +59,14 @@ const SearchForm = ({
   classState,
   setFormClass
 }: Props) => {
-  const [from, setFrom] = useState(process.env.NODE_ENV === 'production' ? '' : 'berliininkatu');
-  const [to, setTo] = useState(process.env.NODE_ENV === 'production' ? '' : 'leppävaara');
-  const [loading, setLoading] = useState(false);
-  const [planTime, setPlanTime] = useState('');
-  const [planDate, setPlanDate] = useState('');
-  const [timeMethod, setTimeMethod] = useState<any>('NOW');
+  const [from, setFrom] = React.useState(
+    process.env.NODE_ENV === 'production' ? '' : 'berliininkatu'
+  );
+  const [to, setTo] = React.useState(process.env.NODE_ENV === 'production' ? '' : 'leppävaara');
+  const [loading, setLoading] = React.useState(false);
+  const [planTime, setPlanTime] = React.useState('');
+  const [planDate, setPlanDate] = React.useState('');
+  const [timeMethod, setTimeMethod] = React.useState<any>('NOW');
 
   const setCurrentTimeAndDate = () => {
     setPlanTime(formatTime(Date.now()));
@@ -72,7 +74,7 @@ const SearchForm = ({
   };
 
   const client = useApolloClient();
-  useEffect(() => {
+  React.useEffect(() => {
     setCurrentTimeAndDate();
   }, []);
 

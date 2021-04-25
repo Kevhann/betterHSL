@@ -4,13 +4,13 @@ export type Route = {
   legs: Leg[];
 };
 
-export type Mode = 'WALK' | 'BUS' | 'RAIL' | 'SUBWAY';
+export type TransportMode = 'WALK' | 'BUS' | 'RAIL' | 'SUBWAY';
 
 export type PointName = string | 'Origin';
 
 export type Leg = {
   legGeometry: legGeometry;
-  mode: Mode;
+  mode: TransportMode;
   startTime: number;
   endTime: number;
   trip: Trip;

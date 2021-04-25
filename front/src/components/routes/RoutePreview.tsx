@@ -3,7 +3,7 @@ import { formatTime } from '../../functions/formatter';
 import { Route } from '../../types/route';
 import { LegPreview } from './LegPreview';
 
-const RoutePreview = ({ route }: { route: Route }) => {
+export const RoutePreview = ({ route }: { route: Route }) => {
   const arrival = formatTime(route.legs[route.legs.length - 1].endTime);
   const departure = formatTime(route.legs[0].startTime);
   const legAmount = route.legs.length;
@@ -30,4 +30,3 @@ const RoutePreview = ({ route }: { route: Route }) => {
     </span>
   );
 };
-export default RoutePreview;
