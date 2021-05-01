@@ -3,7 +3,7 @@ import { Search, Icon, SearchResultData, SearchResultProps } from 'semantic-ui-r
 import autocomplete from '../apis/autocomplete';
 import { useDebouncedCallback } from 'use-debounce';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
-import { AutocompleteResults, LayerName } from '../types/route';
+import { AutocompleteResult, LayerName } from '../types/route';
 
 type Props = {
   fieldName: string;
@@ -13,13 +13,12 @@ type Props = {
 
 export const AutocompleteSearchForm = ({ fieldName, inputValue, setInputValue }: Props) => {
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<AutocompleteResults[]>([]);
+  const [results, setResults] = useState<AutocompleteResult[]>([]);
   const bounce = useDebouncedCallback(
     async value => {
       if (value.length < 1) return resetComponent();
 
       const autocompleteResults = await autocomplete(value);
-      console.log('autocompleteResults:', autocompleteResults);
 
       setLoading(false);
       setResults(autocompleteResults);
