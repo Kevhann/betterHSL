@@ -1,11 +1,18 @@
 import * as React from 'react';
 import { formatDistance, formatTime } from '../../functions/formatter';
-import { Leg } from '../../types/route';
+import { Color, Leg, TransportMode } from '../../types/route';
 import styled from 'styled-components';
+
+const colorMap: ({[key in TransportMode]: Color}) = {
+  WALK: 'blue',
+  BUS: 'blue',
+  RAIL: 'green',
+  SUBWAY: 'orange'
+}
 
 type Props = { leg: Leg };
 type PillProps = {
-  color: string;
+  color: Color;
 };
 const Pill = styled.div`
   border-radius: 4px;
@@ -19,5 +26,7 @@ export const LegPill = (props: Props) => {
   const startTime = formatTime(leg.startTime);
   const distance = formatDistance(leg.distance);
 
-  return <Pill color="green">Hello </Pill>;
+  const color = colorMap[leg.mode];
+
+  return <Pill color={color}>Hello </Pill>;
 };
