@@ -2,13 +2,14 @@ import * as React from 'react';
 import { formatDistance, formatTime } from '../../functions/formatter';
 import { Color, Leg, TransportMode } from '../../types/route';
 import styled from 'styled-components';
+import { ToolTip } from '../ui/ToolTip';
 
-const colorMap: ({[key in TransportMode]: Color}) = {
+const colorMap: { [key in TransportMode]: Color } = {
   WALK: 'blue',
   BUS: 'blue',
   RAIL: 'green',
   SUBWAY: 'orange'
-}
+};
 
 type Props = { leg: Leg };
 type PillProps = {
@@ -28,5 +29,9 @@ export const LegPill = (props: Props) => {
 
   const color = colorMap[leg.mode];
 
-  return <Pill color={color}>Hello </Pill>;
+  return (
+    <ToolTip toolTip="Howdy">
+      <Pill color={color}>Howdy</Pill>
+    </ToolTip>
+  );
 };
