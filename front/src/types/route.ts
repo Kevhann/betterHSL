@@ -51,8 +51,27 @@ export type Stop = {
 
 export type LatLong = [number, number];
 
-export type Color = 'gray' | 'green' | 'red' | 'lightblue' | 'blue' | 'orange';
-export type TrailLeg = { color: Color; decodedTrail: LatLong[]; active: boolean };
+// All application colors should go here
+// TODO: Find some nice colors
+export enum Colors {
+  Green = 'green',
+  Red = 'red',
+  Gray = 'gray',
+  LightBlue = 'lightblue',
+  Blue = 'blue',
+  Orange = 'orange'
+}
+// Colors that map to a transportation method go here
+
+export const colorMap: Record<TransportMode, Colors> = {
+  WALK: Colors.Green,
+  BUS: Colors.Blue,
+  RAIL: Colors.Red,
+  SUBWAY: Colors.Orange
+};
+
+// export type Color = 'gray' | 'green' | 'red' | 'lightblue' | 'blue' | 'orange';
+export type TrailLeg = { color: Colors; decodedTrail: LatLong[]; active: boolean };
 export type Trail = TrailLeg[];
 
 export type TimeOption = 'NOW' | 'LEAVE_AT' | 'ARRIVE_BY';

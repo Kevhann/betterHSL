@@ -19,9 +19,6 @@ export const RoutePreview = ({ route }: { route: Route }) => {
     <span className="routePreviewContainer">
       <span>{departure}</span>
       {route.legs.map(leg => {
-        if (leg.mode === 'WALK' && legAmount !== 1) {
-          return null;
-        }
         return (
           <span>{leg.mode === 'WALK' && legAmount !== 1 ? null : <LegPreview leg={leg} />}</span>
         );

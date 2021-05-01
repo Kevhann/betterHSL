@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Leg } from './Leg';
+import { Leg } from './ExpandedLeg';
 import { Accordion, AccordionTitleProps } from 'semantic-ui-react';
 import { setActiveTrail } from '../../reducers/trailReducer';
 import { connect, ConnectedProps } from 'react-redux';
