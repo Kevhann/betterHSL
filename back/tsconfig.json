@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "removeComments": false,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "alwaysStrict": true,
+    "noFallthroughCasesInSwitch": true,
+    "typeRoots": [
+      "./src/types",
+      "./node_modules/@types"
+    ],
+    "baseUrl": "./src/types",
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  },
+  "exclude": [],
+  "include": [
+    "*.ts",
+    "src/**/*.ts",
+  ]
+}
