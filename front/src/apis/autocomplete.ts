@@ -45,6 +45,7 @@ const resultMapper = (search: ShapeOfResponse) => {
 //   `${autocompleteUrl}?text=${parameter}&focus.point.lat=60.168656&focus.point.lon=24.940899&layers=stop&${geobox}`
 // );
 
+// TODO: Use some metrics or check the what the default params returns, the results that this returns is prettu bad
 const autocomplete = async (parameter: string): Promise<AutocompleteResult[]> => {
   if (parameter) {
     try {
