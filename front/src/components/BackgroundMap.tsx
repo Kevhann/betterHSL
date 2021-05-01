@@ -6,7 +6,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import polyUtil from 'polyline-encoded';
 import { RootState } from '../store';
 import { setBackgroundLocation } from '../reducers/backgroundMapReducer';
-import { Color, LatLong, Trail } from '../types/route';
+import { colorMap, Colors, LatLong, Trail } from '../types/route';
 
 type Props = ConnectedProps<typeof connector>;
 
@@ -23,7 +23,7 @@ const BackgroundMap = ({ routes, activeTrail, mapClass }: Props) => {
             ...total,
             current.legs.map(leg => {
               const decodedTrail: LatLong[] = polyUtil.decode(leg.legGeometry.points);
-              return { color: 'gray', decodedTrail, active: false };
+              return { color: Colors.Gray, decodedTrail, active: false };
             })
           ];
         }
@@ -31,16 +31,7 @@ const BackgroundMap = ({ routes, activeTrail, mapClass }: Props) => {
       }, []);
 
       const placeholder: Trail = routes[activeTrail].legs.map(leg => {
-        let color: Color = 'green';
-        if (leg.mode === 'WALK') {
-          color = 'lightblue';
-        } else if (leg.mode === 'SUBWAY') {
-          color = 'orange';
-        } else if (leg.mode === 'BUS') {
-          color = 'blue';
-        } else if (leg.mode === 'RAIL') {
-          color = 'red';
-        }
+        const color = colorMap[leg.mode];
         const decodedTrail: LatLong[] = polyUtil.decode(leg.legGeometry.points);
         return { color, decodedTrail, active: true };
       });
