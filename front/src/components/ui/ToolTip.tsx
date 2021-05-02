@@ -96,10 +96,7 @@ export const ToolTip: React.FunctionComponent<Props> = ({
   return (
     <Wrapper>
       {children}
-      <Text placement={'above'}>{toolTip()}</Text>
-      <Text placement={'below'}>{toolTip()}</Text>
-      <Text placement={'left'}>{toolTip()}</Text>
-      <Text placement={'right'}>{toolTip()}</Text>
+      <Text placement={direction}>{toolTip()}</Text>
     </Wrapper>
   );
 };

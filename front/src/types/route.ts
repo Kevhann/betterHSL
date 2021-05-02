@@ -59,15 +59,17 @@ export enum Colors {
   Gray = 'gray',
   LightBlue = 'lightblue',
   Blue = 'blue',
-  Orange = 'orange'
+  SubwayOrange = '#ff6319',
+  BusBlue = '#007ac9',
+  RailPurple = '#8c4799'
 }
 // Colors that map to a transportation method go here
 
 export const colorMap: Record<TransportMode, Colors> = {
-  WALK: Colors.Green,
-  BUS: Colors.Blue,
-  RAIL: Colors.Red,
-  SUBWAY: Colors.Orange
+  WALK: Colors.Gray,
+  BUS: Colors.BusBlue,
+  RAIL: Colors.RailPurple,
+  SUBWAY: Colors.SubwayOrange
 };
 
 // export type Color = 'gray' | 'green' | 'red' | 'lightblue' | 'blue' | 'orange';
