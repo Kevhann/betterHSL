@@ -66,7 +66,7 @@ const SearchForm = ({
   const [loading, setLoading] = React.useState(false);
   const [planTime, setPlanTime] = React.useState('');
   const [planDate, setPlanDate] = React.useState('');
-  const [timeMethod, setTimeMethod] = React.useState<any>('NOW');
+  const [timeMethod, setTimeMethod] = React.useState<TimeOption>('NOW');
 
   const setCurrentTimeAndDate = () => {
     setPlanTime(formatTime(Date.now()));
@@ -85,8 +85,7 @@ const SearchForm = ({
       setLoading(true);
       setFormClass('resultsForm');
 
-      const coordinatesFrom = await geocoding(from);
-      const coordinatesTo = await geocoding(to);
+      const [coordinatesFrom, coordinatesTo] = await Promise.all([geocoding(from), geocoding(to)]);
 
       setBackgroundLocation([
         [coordinatesFrom[1], coordinatesFrom[0]],
@@ -130,10 +129,11 @@ const SearchForm = ({
               fluid
               options={timeSelectOptions}
               clearable={false}
-              onChange={(event, { value }) => {
-                setTimeMethod(value);
-                console.log('value:', value);
-                if (value === 'NOW') {
+              onChange={(event, value) => {
+                const method = value.value as TimeOption;
+                setTimeMethod(method);
+                console.log('method:', method);
+                if (method === 'NOW') {
                   setCurrentTimeAndDate();
                 }
               }}
