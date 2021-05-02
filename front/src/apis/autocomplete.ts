@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AutocompleteResult, LayerName } from '../types/route';
+import { AutocompleteResult, LatLong, LayerName } from '../types/route';
 
 const searchUrl = 'https://api.digitransit.fi/geocoding/v1/search';
 
@@ -22,13 +22,17 @@ type ShapeOfFeature = {
     label: string;
     layer: LayerName;
   };
+  geometry: {
+    coordinates: LatLong;
+  };
 };
 
 const resultMapper = (search: ShapeOfResponse) => {
   const autocompleteResults: AutocompleteResult[] = search.data.features.map(
     (res: ShapeOfFeature) => ({
       title: res.properties.label,
-      layer: res.properties.layer
+      layer: res.properties.layer,
+      coordinates: res.geometry.coordinates
     })
   );
 

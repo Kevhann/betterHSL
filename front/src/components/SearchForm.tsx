@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useApolloClient } from 'react-apollo-hooks';
 import Routes from './routes/Routes';
-import { AutocompleteSearchForm } from './AutocompleteSearchForm';
+import { AutocompleteSearchForm, AutocompleteValue } from './AutocompleteSearchForm';
 import { Segment, Form, Button, Icon, Loader, Input } from 'semantic-ui-react';
 import { connect, ConnectedProps } from 'react-redux';
 import { setRoutes } from '../reducers/routeReducer';
@@ -9,8 +9,8 @@ import { setBackgroundLocation } from '../reducers/backgroundMapReducer';
 import { setMapClass } from '../reducers/mapClassReducer';
 import { setFormClass } from '../reducers/formClassReducer';
 import { formatTime, getCurrentDate } from '../functions/formatter';
-import planRoute from '../apis/planRoute';
-import geocoding from '../apis/geocoding';
+import { planRoute } from '../apis/planRoute';
+import { geocode } from '../apis/geocoding';
 import { RootState } from '../store';
 import { TimeOption } from '../types/route';
 
@@ -59,10 +59,12 @@ const SearchForm = ({
   classState,
   setFormClass
 }: Props) => {
-  const [from, setFrom] = React.useState(
-    process.env.NODE_ENV === 'production' ? '' : 'berliininkatu'
-  );
-  const [to, setTo] = React.useState(process.env.NODE_ENV === 'production' ? '' : 'leppävaara');
+  const [from, setFrom] = React.useState<AutocompleteValue>({
+    name: process.env.NODE_ENV === 'production' ? '' : 'berliininkatu'
+  });
+  const [to, setTo] = React.useState<AutocompleteValue>({
+    name: process.env.NODE_ENV === 'production' ? '' : 'leppävaara'
+  });
   const [loading, setLoading] = React.useState(false);
   const [planTime, setPlanTime] = React.useState('');
   const [planDate, setPlanDate] = React.useState('');
@@ -81,11 +83,11 @@ const SearchForm = ({
   const submit = async (event: any) => {
     event.preventDefault();
     setRoutes([]);
-    if (from !== '' && to !== '') {
+    if (from.name !== '' && to.name !== '') {
       setLoading(true);
       setFormClass('resultsForm');
 
-      const [coordinatesFrom, coordinatesTo] = await Promise.all([geocoding(from), geocoding(to)]);
+      const [coordinatesFrom, coordinatesTo] = await geocode(from, to);
 
       setBackgroundLocation([
         [coordinatesFrom[1], coordinatesFrom[0]],

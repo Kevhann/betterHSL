@@ -3,20 +3,25 @@ import { Search, Icon, SearchResultData, SearchResultProps } from 'semantic-ui-r
 import autocomplete from '../apis/autocomplete';
 import { useDebouncedCallback } from 'use-debounce';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
-import { AutocompleteResult, LayerName } from '../types/route';
+import { AutocompleteResult, LatLong, LayerName } from '../types/route';
+
+export type AutocompleteValue = { name: string; coordinates?: LatLong };
 
 type Props = {
   fieldName: string;
-  inputValue: string;
-  setInputValue: (val: string) => void;
+  inputValue: AutocompleteValue;
+  setInputValue: (val: AutocompleteValue) => void;
 };
 
 export const AutocompleteSearchForm = ({ fieldName, inputValue, setInputValue }: Props) => {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<AutocompleteResult[]>([]);
+
   const bounce = useDebouncedCallback(
     async value => {
       if (value.length < 1) return resetComponent();
+
+      setLoading(true);
 
       const autocompleteResults = await autocomplete(value);
 
@@ -31,13 +36,16 @@ export const AutocompleteSearchForm = ({ fieldName, inputValue, setInputValue }:
   const resetComponent = () => {
     setLoading(false);
     setResults([]);
-    setInputValue('');
+    setInputValue({ name: '' });
   };
 
   const handleResultSelect = (
     _e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     data: SearchResultData
-  ) => setInputValue(data.result.title);
+  ) => {
+    console.log('data:', data);
+    setInputValue({ name: data.result.title, coordinates: data.result.coordinates });
+  };
 
   const resultRenderer = (props: SearchResultProps) => {
     /* Return an appropriate icon based on the layer of the autofill result */
@@ -66,15 +74,13 @@ export const AutocompleteSearchForm = ({ fieldName, inputValue, setInputValue }:
     <Search
       fluid
       loading={loading}
-      onSearchChange={(e: any) => {
-        console.log('e:', e);
-        setLoading(true);
-        setInputValue(e.target.value);
-        bounce(e.target.value);
+      onSearchChange={(e, data) => {
+        setInputValue({ name: data.value! });
+        bounce(data.value);
       }}
       onResultSelect={handleResultSelect}
       results={results}
-      value={inputValue}
+      value={inputValue.name}
       placeholder={fieldName}
       resultRenderer={resultRenderer}
     />
