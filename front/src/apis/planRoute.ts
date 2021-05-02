@@ -1,6 +1,6 @@
-import { gql } from "apollo-boost"
+import { gql } from 'apollo-boost';
 
-const planRoute = gql`
+export const planRoute = gql`
   query planRoute(
     $latFrom: Float
     $lonFrom: Float
@@ -56,5 +56,4 @@ const planRoute = gql`
       }
     }
   }
-`
-export default planRoute
+`;
