@@ -3,38 +3,44 @@ import styled from 'styled-components';
 import { Colors } from '../../types/route';
 
 type PlacementOption = 'above' | 'below' | 'left' | 'right';
+type Placement = { placement: PlacementOption };
+
 const toolTipPlacement = (placement: PlacementOption) => {
   const css: Record<PlacementOption, string> = {
-    below: `top: 150%;
+    below: `top: calc(100% + 16px);
     left: 50%;
     margin-left: -60px;`,
-    above: `bottom: 150%;
+    above: `bottom: calc(100% + 16px);
     left: 50%;
     margin-left: -60px;`,
-    left: `top: 150%;
-    left: 50%;
-    margin-left: -60px;`,
-    right: `top: 150%;
-    left: 50%;
-    margin-left: -60px;`
+    left: `right: calc(100% + 16px);
+    top: 50%;
+    margin-top: -23px;`,
+    right: `left: calc(100% + 16px);
+    top: 50%;
+    margin-top: -23px;`
   };
 
   return css[placement];
 };
 const toolTipCaretPlacement = (placement: PlacementOption) => {
   const css: Record<PlacementOption, string> = {
-    below: `top: 150%;
+    below: `bottom: 100%;
     left: 50%;
-    margin-left: -60px;`,
-    above: `top: 150%;
+    margin-left: -5px;
+    border-color: transparent transparent black transparent;`,
+    above: `top: 100%;
     left: 50%;
-    margin-left: -60px;`,
-    left: `top: 150%;
-    left: 50%;
-    margin-left: -60px;`,
-    right: `top: 150%;
-    left: 50%;
-    margin-left: -60px;`
+    margin-left: -5px;
+    border-color: black transparent transparent transparent;`,
+    left: `left: 100%;
+    top: 50%;
+    margin-top: -5px;
+    border-color: transparent transparent transparent black;`,
+    right: `right: 100%;
+    top: 50%;
+    margin-top: -5px;
+    border-color: transparent black transparent transparent;`
   };
 
   return css[placement];
@@ -54,18 +60,14 @@ const Text = styled.span`
   transition-delay: 0s;
   opacity: 0%;
   // position
-  top: 150%;
-  left: 50%;
-  margin-left: -60px;
+  ${(props: Placement) => toolTipPlacement(props.placement)}
+
   :after {
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
+    ${(props: Placement) => toolTipCaretPlacement(props.placement)}
     content: '';
     position: absolute;
     border-width: 5px;
     border-style: solid;
-    border-color: black transparent transparent transparent;
   }
 `;
 
@@ -94,7 +96,10 @@ export const ToolTip: React.FunctionComponent<Props> = ({
   return (
     <Wrapper>
       {children}
-      <Text>{toolTip()}</Text>
+      <Text placement={'above'}>{toolTip()}</Text>
+      <Text placement={'below'}>{toolTip()}</Text>
+      <Text placement={'left'}>{toolTip()}</Text>
+      <Text placement={'right'}>{toolTip()}</Text>
     </Wrapper>
   );
 };
