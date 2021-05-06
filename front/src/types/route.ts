@@ -61,12 +61,13 @@ export enum Colors {
   Blue = 'blue',
   SubwayOrange = '#ff6319',
   BusBlue = '#007ac9',
-  RailPurple = '#8c4799'
+  RailPurple = '#8c4799',
+  WalkBlue = '#a4dbf5'
 }
 // Colors that map to a transportation method go here
 
 export const colorMap: Record<TransportMode, Colors> = {
-  WALK: Colors.Gray,
+  WALK: Colors.WalkBlue,
   BUS: Colors.BusBlue,
   RAIL: Colors.RailPurple,
   SUBWAY: Colors.SubwayOrange

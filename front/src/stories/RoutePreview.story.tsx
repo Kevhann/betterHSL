@@ -16,11 +16,13 @@ export type StoryMetadata = {
 
 const Container = styled.div`
   margin: 150px;
-  max-width: 300px;
-  width: 300px;
+  max-width: 500px;
+  height: 100px;
+  max-height: 100px;
+  border: 2px solid gray;
 `;
 
-const Wrapper: React.FunctionComponent = props => <Container>{props.children}</Container>;
+// const Wrapper: React.FunctionComponent = props => <Container>{props.children}</Container>;
 
 export default {
   title: 'Route/RoutePreview',
@@ -30,7 +32,7 @@ export default {
 
 const Template = (args: Props) => (
   <Container>
-    <RoutePreview {...args} />;
+    <RoutePreview {...args} />
   </Container>
 );
 

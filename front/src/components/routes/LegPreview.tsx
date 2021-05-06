@@ -3,44 +3,48 @@ import { formatDistance, formatTime } from '../../functions/formatter';
 import styled from 'styled-components';
 import { colorMap, Colors, Leg } from '../../types/route';
 import { ToolTip } from '../ui/ToolTip';
-import { Walk } from '../ui/Icons';
+import { getLegIcon } from '../ui/Icons';
 
-type Props = { leg: Leg };
+type Props = { leg: Leg; widthPercentage: number };
 
-type PillProps = {
+type PillStyleProps = {
   color: Colors;
+  widthPercentage: number;
 };
 const Pill = styled.div`
-  line-height: 1em;
   border-radius: 4px;
-  background-color: ${(props: PillProps) => props.color};
-  width: fit-content;
-  padding: 4px;
+  background-color: ${(props: PillStyleProps) => props.color};
+  width: ${(props: PillStyleProps) => props.widthPercentage}%;
+  white-space: nowrap;
+  padding: 4px 4px;
 `;
 
-export const LegPreview = (props: Props) => {
-  const { leg } = props;
+export const LegPreview = ({ leg, widthPercentage }: Props) => {
   const startTime = formatTime(leg.startTime);
   const distance = formatDistance(leg.distance);
 
   const color = colorMap[leg.mode];
 
+  const icon = getLegIcon(leg.mode);
+
+  const shortName = leg.mode === 'WALK' ? `${leg.distance}m` : leg.trip?.route.shortName;
+
   return (
     <>
-      <ToolTip
-        toolTip={() => (
-          <>
-            Leaves: {startTime}
-            <br />
-            Distance: {distance}
-          </>
-        )}
-      >
-        <Pill color={color}>
-          <Walk />
-          Howdy
-        </Pill>
-      </ToolTip>
+      <Pill widthPercentage={widthPercentage} color={color}>
+        <ToolTip
+          toolTip={() => (
+            <>
+              Leaves: {startTime}
+              <br />
+              Distance: {distance}
+            </>
+          )}
+        >
+          {icon()}
+          {shortName}
+        </ToolTip>
+      </Pill>
     </>
   );
 };

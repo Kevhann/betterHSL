@@ -73,13 +73,20 @@ const Text = styled.span`
 
 const Wrapper = styled.div`
   position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
+  width: 100%;
+  height: 100%;
+
   :hover span {
     transition: opacity, 1s;
     visibility: visible;
     opacity: 100%;
   }
+`;
+
+const Container = styled.div`
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 100%;
 `;
 
 type Props = {
@@ -95,7 +102,7 @@ export const ToolTip: React.FunctionComponent<Props> = ({
 }) => {
   return (
     <Wrapper>
-      {children}
+      <Container>{children}</Container>
       <Text placement={direction}>{toolTip()}</Text>
     </Wrapper>
   );
