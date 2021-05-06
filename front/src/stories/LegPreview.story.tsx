@@ -22,4 +22,4 @@ export default {
 
 const Template = (args: Props) => <LegPreview {...args} />;
 
-export const Primary = () => <Template leg={route.legs[0]} />;
+export const Primary = () => <Template leg={route.legs[0]} widthPercentage={50} />;
