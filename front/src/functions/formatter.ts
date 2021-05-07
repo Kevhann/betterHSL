@@ -1,4 +1,4 @@
-export const formatDistance = (distance) => {
+export const formatDistance = (distance: number):string => {
   const floorDistance = Math.round(distance)
   let result
   if (floorDistance > 1000) {
@@ -11,14 +11,14 @@ export const formatDistance = (distance) => {
   return result
 }
 
-export const formatDuration = (durationInSeconds) => {
+export const formatDuration = (durationInSeconds: number):string => {
   const durationHours = Math.floor(durationInSeconds / 3600)
   const durationMinutes = Math.floor((durationInSeconds % 3600) / 60)
   const conditionalHours = durationHours === 0 ? "" : `${durationHours} h `
   return `${conditionalHours}${durationMinutes} min`
 }
 
-export const formatTime = (time) => {
+export const formatTime = (time: number) => {
   const date = new Date(time)
   const hour = date.getHours()
   const minute = date.getMinutes()
