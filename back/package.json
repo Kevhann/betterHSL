@@ -9,10 +9,12 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "ts-node index.ts",
+    "start": "node dist/index.js",
+    "postinstall": "tsc",
+    "tsc": "tsc",
     "watch": "nodemon index.ts",
     "build:ui": "cd front && npm run build",
-    "deploy:all": "npm run build:ui && git add . && git commit -m'deployed new frontend build' && git push heroku master"
+    "deploy:all": "npm run build:ui && git push heroku master"
   },
   "repository": {
     "type": "git",

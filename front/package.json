@@ -34,7 +34,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && rm -rf ../build && cp -r build ../build && rm -r build",
+    "build": "react-scripts build && rm -rf ../back/build && cp -r build ../back/build && rm -r build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
