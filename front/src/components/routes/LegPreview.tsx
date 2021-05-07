@@ -3,7 +3,7 @@ import { formatDistance, formatTime } from '../../functions/formatter';
 import styled from 'styled-components';
 import { colorMap, Colors, Leg } from '../../types/route';
 import { ToolTip } from '../ui/ToolTip';
-import { getLegIcon } from '../ui/Icons';
+import { LegIcon } from '../ui/Icons';
 
 type Props = { leg: Leg; widthPercentage: number };
 
@@ -25,9 +25,7 @@ export const LegPreview = ({ leg, widthPercentage }: Props) => {
 
   const color = colorMap[leg.mode];
 
-  const icon = getLegIcon(leg.mode);
-
-  const shortName = leg.mode === 'WALK' ? `${leg.distance}m` : leg.trip?.route.shortName;
+  const shortName = leg.mode === 'WALK' ? formatDistance(leg.distance) : leg.trip?.route.shortName;
 
   return (
     <>
@@ -41,8 +39,8 @@ export const LegPreview = ({ leg, widthPercentage }: Props) => {
             </>
           )}
         >
-          {icon()}
-          {shortName}
+          <LegIcon transportMode={leg.mode} />
+          <div>{shortName}</div>
         </ToolTip>
       </Pill>
     </>

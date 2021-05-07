@@ -99,7 +99,7 @@ export const ToolTip: React.FunctionComponent<Props> = ({
   children,
   toolTip,
   direction = 'above'
-}) => {
+}: React.PropsWithChildren<Props>) => {
   return (
     <Wrapper>
       <Container>{children}</Container>
