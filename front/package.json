@@ -75,7 +75,7 @@
     "@types/redux-thunk": "^2.1.0",
     "@types/styled-components": "^5.1.9",
     "source-map-loader": "^2.0.1",
-    "ts-loader": "^8.2.0"    
+    "ts-loader": "^8.2.0"
   },
   "resolutions": {
     "@storybook/react/babel-loader": "8.1.0"
