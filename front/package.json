@@ -30,12 +30,12 @@
     "semantic-ui-react": "^2.0.3",
     "styled-components": "^5.2.3",
     "subscriptions-transport-ws": "^0.9.16",
+    "typescript": "^4.2.4",
     "use-debounce": "^6.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && rm -rf ../back/build && cp -r build ../back/build && rm -r build",
-    "postinstall": "tsc",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
@@ -75,8 +75,7 @@
     "@types/redux-thunk": "^2.1.0",
     "@types/styled-components": "^5.1.9",
     "source-map-loader": "^2.0.1",
-    "ts-loader": "^8.2.0",
-    "typescript": "^4.2.4"
+    "ts-loader": "^8.2.0"    
   },
   "resolutions": {
     "@storybook/react/babel-loader": "8.1.0"
