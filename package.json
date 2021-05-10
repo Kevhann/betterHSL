@@ -5,6 +5,7 @@
   "scripts": {
     "install": "cd front && npm install && cd .. && cd back && npm install",
     "build": "cd front && npm run build",
+    "heroku-postbuild": "cd front && npm run build",
     "start": "cd back && npm start"
   }
 }
