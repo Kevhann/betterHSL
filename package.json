@@ -3,7 +3,8 @@
     "node": "14"
   },
   "scripts": {
-    "heroku-prebuild": "cd front && npm install && npm run build && cd .. && cd back && npm install",
+    "install": "cd front && npm install && cd .. && cd back && npm install",
+    "build": "cd front && npm run build",
     "start": "cd back && npm start"
   }
 }

@@ -55,7 +55,7 @@ const BackgroundMap = ({ routes, activeTrail, mapClass }: Props) => {
         easeLinearity={0.35}
         // bounds={latlng}
         boundsOptions={{ padding: [10, 10] }}
-        onclick={(e: any) => {
+        onclick={(e: LeafletMouseEvent) => {
           console.log('lat, lng', [e.latlng.lat, e.latlng.lng]);
           // setCenter([e.latlng.lat, e.latlng.lng])
         }}
