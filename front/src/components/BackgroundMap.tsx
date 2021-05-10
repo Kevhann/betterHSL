@@ -7,6 +7,7 @@ import polyUtil from 'polyline-encoded';
 import { RootState } from '../store';
 import { setBackgroundLocation } from '../reducers/backgroundMapReducer';
 import { colorMap, Colors, LatLong, Trail } from '../types/route';
+import { LeafletMouseEvent } from 'leaflet';
 
 type Props = ConnectedProps<typeof connector>;
 
