@@ -7,6 +7,7 @@ import polyUtil from 'polyline-encoded';
 import { RootState } from '../store';
 import { setBackgroundLocation } from '../reducers/backgroundMapReducer';
 import { colorMap, Colors, LatLong, Trail } from '../types/route';
+import { LeafletMouseEvent } from 'leaflet';
 
 type Props = ConnectedProps<typeof connector>;
 
@@ -55,7 +56,7 @@ const BackgroundMap = ({ routes, activeTrail, mapClass }: Props) => {
         easeLinearity={0.35}
         // bounds={latlng}
         boundsOptions={{ padding: [10, 10] }}
-        onclick={e => {
+        onclick={(e: LeafletMouseEvent) => {
           console.log('lat, lng', [e.latlng.lat, e.latlng.lng]);
           // setCenter([e.latlng.lat, e.latlng.lng])
         }}
