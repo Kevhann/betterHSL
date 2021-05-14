@@ -32,4 +32,3 @@ const Template = (args: Props) => (
   </Container>
 );
 
-// export const Primary = () => <Template toolTip={} />;
