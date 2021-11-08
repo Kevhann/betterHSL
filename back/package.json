@@ -30,7 +30,7 @@
     "apollo-fetch": "^0.7.0",
     "apollo-link": "^1.2.14",
     "apollo-link-context": "^1.0.20",
-    "apollo-server": "^2.24.0",
+    "apollo-server": "^2.25.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
