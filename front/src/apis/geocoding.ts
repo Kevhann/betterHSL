@@ -10,7 +10,12 @@ export const geocode = async (
     from.coordinates ??
     (
       await axios.get<GeocodingResponse>(
-        `https://api.digitransit.fi/geocoding/v1/search?text=${from.name}&size=1`
+        `https://api.digitransit.fi/geocoding/v1/search?text=${from.name}&size=1`,
+        {
+          headers: {
+            'digitransit-subscription-key': process.env.DIGITRANSIT_AUTH_KEY
+          }
+        }
       )
     ).data.features[0].geometry.coordinates;
 
@@ -18,7 +23,12 @@ export const geocode = async (
     to.coordinates ??
     (
       await axios.get<GeocodingResponse>(
-        `https://api.digitransit.fi/geocoding/v1/search?text=${to.name}&size=1`
+        `https://api.digitransit.fi/geocoding/v1/search?text=${to.name}&size=1`,
+        {
+          headers: {
+            'digitransit-subscription-key': process.env.DIGITRANSIT_AUTH_KEY
+          }
+        }
       )
     ).data.features[0].geometry.coordinates;
 

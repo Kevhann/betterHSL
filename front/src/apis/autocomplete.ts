@@ -56,7 +56,12 @@ const autocomplete = async (parameter: string): Promise<AutocompleteResult[]> =>
       const responses: ShapeOfResponse[] = await Promise.all(
         layers.map(layer =>
           axios.get(
-            `${searchUrl}?text=${parameter}&focus.point.lat=${focusLat}&focus.point.lon=${focusLon}&layers=${layer}&${geobox}`
+            `${searchUrl}?text=${parameter}&focus.point.lat=${focusLat}&focus.point.lon=${focusLon}&layers=${layer}&${geobox}`,
+            {
+              headers: {
+                'digitransit-subscription-key': process.env.DIGITRANSIT_AUTH_KEY
+              }
+            }
           )
         )
       );
