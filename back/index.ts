@@ -6,6 +6,7 @@ import * as cors from "cors";
 import * as express from "express";
 // import graphqlHTTP from "express-graphql";
 import * as bodyParser from "body-parser";
+require("dotenv").config();
 const app = express();
 
 const PORT = process.env.PORT || 3003;
