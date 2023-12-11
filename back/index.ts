@@ -13,7 +13,17 @@ const PORT = process.env.PORT || 3003;
 const HSL_ROUTE_API_URI =
   "//api.digitransit.fi/routing/v1/routers/hsl/index/graphql";
 
-const fetch = createApolloFetch({ uri: HSL_ROUTE_API_URI });
+const fetch = createApolloFetch({
+  uri: HSL_ROUTE_API_URI,
+}).use(({ options }, next) => {
+  if (!options.headers) {
+    options.headers = {};
+  }
+  //@ts-ignore
+  options.headers["digitransit-subscription-key"] =
+    process.env.DIGITRANSIT_AUTH_KEY;
+  next();
+});
 
 app.use(bodyParser.json());
 app.use(cors());
