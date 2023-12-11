@@ -50,6 +50,7 @@ const resultMapper = (search: ShapeOfResponse) => {
 // );
 
 // TODO: Use some metrics or check the what the default params returns, the results that this returns is prettu bad
+console.log('auth key for accessing autocomplete api: ', process.env.DIGITRANSIT_AUTH_KEY);
 const autocomplete = async (parameter: string): Promise<AutocompleteResult[]> => {
   if (parameter) {
     try {
