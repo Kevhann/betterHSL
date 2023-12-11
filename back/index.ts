@@ -169,6 +169,7 @@ const server = new ApolloServer({
   introspection: true,
 });
 console.log("env port: ", process.env.PORT);
+console.log("whole env for testing: ", process.env);
 server.applyMiddleware({ app });
 
 app.use(express.static("build"));
