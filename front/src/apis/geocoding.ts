@@ -13,7 +13,7 @@ export const geocode = async (
         `https://api.digitransit.fi/geocoding/v1/search?text=${from.name}&size=1`,
         {
           headers: {
-            'digitransit-subscription-key': process.env.DIGITRANSIT_AUTH_KEY
+            'digitransit-subscription-key': process.env.REACT_APP_DIGITRANSIT_AUTH_KEY
           }
         }
       )
@@ -26,7 +26,7 @@ export const geocode = async (
         `https://api.digitransit.fi/geocoding/v1/search?text=${to.name}&size=1`,
         {
           headers: {
-            'digitransit-subscription-key': process.env.DIGITRANSIT_AUTH_KEY
+            'digitransit-subscription-key': process.env.REACT_APP_DIGITRANSIT_AUTH_KEY
           }
         }
       )

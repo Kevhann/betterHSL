@@ -50,7 +50,10 @@ const resultMapper = (search: ShapeOfResponse) => {
 // );
 
 // TODO: Use some metrics or check the what the default params returns, the results that this returns is prettu bad
-console.log('auth key for accessing autocomplete api: ', process.env.DIGITRANSIT_AUTH_KEY);
+console.log(
+  'auth key for accessing autocomplete api: ',
+  process.env.REACT_APP_DIGITRANSIT_AUTH_KEY
+);
 const autocomplete = async (parameter: string): Promise<AutocompleteResult[]> => {
   if (parameter) {
     try {
@@ -60,7 +63,7 @@ const autocomplete = async (parameter: string): Promise<AutocompleteResult[]> =>
             `${searchUrl}?text=${parameter}&focus.point.lat=${focusLat}&focus.point.lon=${focusLon}&layers=${layer}&${geobox}`,
             {
               headers: {
-                'digitransit-subscription-key': process.env.DIGITRANSIT_AUTH_KEY
+                'digitransit-subscription-key': process.env.REACT_APP_DIGITRANSIT_AUTH_KEY
               }
             }
           )
