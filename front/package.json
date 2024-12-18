@@ -9,7 +9,7 @@
     "apollo-link": "^1.2.13",
     "apollo-link-context": "^1.0.19",
     "apollo-link-ws": "^1.0.19",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "dotenv": "^7.0.0",
     "graphql": "^14.5.8",
     "leaflet": "^1.6.0",
